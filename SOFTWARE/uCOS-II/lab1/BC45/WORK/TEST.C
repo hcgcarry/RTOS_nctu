@@ -19,18 +19,26 @@
 */
 
 #define  TASK_STK_SIZE                 512       /* Size of each task's stacks (# of WORDs)            */
-#define  N_TASKS                        10       /* Number of identical tasks                          */
+#define  N_TASKS                        2       /* Number of identical tasks                          */
+//#define debug
 
 /*
 *********************************************************************************************************
 *                                               VARIABLES
 *********************************************************************************************************
 */
+struct period{
+    int exeTime;
+    int period;
+};
+char CtxSwMessage[CtxSwMessageSize][50];
+int CtxSwMessageTop = 0;
+OS_EVENT     *printCtxSwMbox;                               /* Message mailboxes for Tasks #4 and #5         */
 
 OS_STK        TaskStk[N_TASKS][TASK_STK_SIZE];        /* Tasks stacks                                  */
 OS_STK        TaskStartStk[TASK_STK_SIZE];
-char          TaskData[N_TASKS];                      /* Parameters to pass to each task               */
-OS_EVENT     *RandomSem;
+OS_STK        TaskPrintCtxSwStk[TASK_STK_SIZE];
+struct period TaskData[N_TASKS];                      /* Parameters to pass to each task               */
 
 /*
 *********************************************************************************************************
@@ -38,11 +46,13 @@ OS_EVENT     *RandomSem;
 *********************************************************************************************************
 */
 
+        void printCtxSwMessage();
         void  Task(void *data);                       /* Function prototypes of tasks                  */
         void  TaskStart(void *data);                  /* Function prototypes of Startup task           */
 static  void  TaskStartCreateTasks(void);
 static  void  TaskStartDispInit(void);
 static  void  TaskStartDisp(void);
+///
 
 /*$PAGE*/
 /*
@@ -60,7 +70,6 @@ void  main (void)
     PC_DOSSaveReturn();                                    /* Save environment to return to DOS        */
     PC_VectSet(uCOS, OSCtxSw);                             /* Install uC/OS-II's context switch vector */
 
-    RandomSem   = OSSemCreate(1);                          /* Random number semaphore                  */
 
     OSTaskCreate(TaskStart, (void *)0, &TaskStartStk[TASK_STK_SIZE - 1], 0);
     OSStart();                                             /* Start multitasking                       */
@@ -83,7 +92,7 @@ void  TaskStart (void *pdata)
 
     pdata = pdata;                                         /* Prevent compiler warning                 */
 
-    TaskStartDispInit();                                   /* Initialize the display                   */
+    //TaskStartDispInit();                                   /* Initialize the display                   */
 
     OS_ENTER_CRITICAL();
     PC_VectSet(0x08, OSTickISR);                           /* Install uC/OS-II's clock tick ISR        */
@@ -91,11 +100,16 @@ void  TaskStart (void *pdata)
     OS_EXIT_CRITICAL();
 
     OSStatInit();                                          /* Initialize uC/OS-II's statistics         */
+    printCtxSwMbox= OSMboxCreate((void *)0);                     /* Create 2 message mailboxes               */
 
     TaskStartCreateTasks();                                /* Create all the application tasks         */
 
     for (;;) {
-        TaskStartDisp();                                  /* Update the display                       */
+        #ifdef debug
+        printf("--- enter taskStart\n");
+        #endif
+        //TaskStartDisp();                                  /* Update the display                       */
+        printCtxSwMessage();
 
 
         if (PC_GetKey(&key) == TRUE) {                     /* See if key has been pressed              */
@@ -204,11 +218,24 @@ static  void  TaskStartDisp (void)
 static  void  TaskStartCreateTasks (void)
 {
     INT8U  i;
+    INT8U err;
 
+    TaskData[0].exeTime = 1;
+    TaskData[0].period= 3;
+    TaskData[1].exeTime = 3;
+    TaskData[1].period= 6;
 
+    /*
+    err=OSTaskCreate(printCtxSwMessage, (void *)0, &TaskPrintCtxSwStk[TASK_STK_SIZE-1], 1);
+    if(err!=OS_NO_ERR){
+        printf("create task printCtxSwMessage errorno %d \n",err);
+    } 
+    */
     for (i = 0; i < N_TASKS; i++) {                        /* Create N_TASKS identical tasks           */
-        TaskData[i] = '0' + i;                             /* Each task will display its own letter    */
-        OSTaskCreate(Task, (void *)&TaskData[i], &TaskStk[i][TASK_STK_SIZE - 1], i + 1);
+        err=OSTaskCreate(Task, (void *)&TaskData[i], &TaskStk[i][TASK_STK_SIZE - 1],i+2 );
+        if(err!=OS_NO_ERR){
+            printf("create task %d errorno %d \n",i,err);
+        } 
     }
 }
 
@@ -218,20 +245,52 @@ static  void  TaskStartCreateTasks (void)
 *********************************************************************************************************
 */
 
-void  Task (void *pdata)
+void Task(void *pdata)
 {
-    INT8U  x;
-    INT8U  y;
-    INT8U  err;
-
-
-    for (;;) {
-        OSSemPend(RandomSem, 0, &err);           /* Acquire semaphore to perform random numbers        */
-        x = random(80);                          /* Find X position where task number will appear      */
-        y = random(16);                          /* Find Y position where task number will appear      */
-        OSSemPost(RandomSem);                    /* Release semaphore                                  */
-                                                 /* Display the task number on the screen              */
-        PC_DispChar(x, y + 5, *(char *)pdata, DISP_FGND_BLACK + DISP_BGND_LIGHT_GRAY);
-        OSTimeDly(1);                            /* Delay 1 clock tick                                 */
+    int start;  //the start time 
+    int end;   //the end time
+    int toDelay;
+    struct period *tmpPdata = (struct period*)pdata;
+    int c = tmpPdata->exeTime;
+    OS_ENTER_CRITICAL();
+    OSTCBCur->compTime=c;// set the counter (c ticks for computation)
+    OSTCBCur->period=tmpPdata->period;// set the period
+    
+    OS_EXIT_CRITICAL();
+        
+    start=OSTimeGet(); 
+    while(1)
+    {
+        #ifdef debug
+        printf("---real c: %d ,real period %d\n",OSTCBCur->compTime,OSTCBCur->period);
+        printf("---c: %d ,period %d\n",tmpPdata->exeTime,tmpPdata->period);
+        printf("---start OSPrioCur: %d , real C %d,period %d\n",OSPrioCur,OSTCBCur->compTime,OSTCBCur->period);
+        #endif
+        while(OSTCBCur->compTime>0)  //C ticks
+        {
+        // do nothing
+        }
+        end=OSTimeGet() ; // end time
+        /*
+        if(end > start+OSTCBCur->period){
+            printf("exceed deadline\n");
+        }
+        */
+        toDelay=(OSTCBCur->period)-(end-start) ;
+        start=start+(OSTCBCur->period) ;  // next start time
+        #ifdef debug
+        printf("---end OSPrioCur: %d ,real C: %d,period %d,end time:%d,toDelay:%d,next start:%d\n",OSPrioCur,OSTCBCur->compTime,OSTCBCur->period,end,toDelay,start);
+        #endif
+        OS_ENTER_CRITICAL();
+        OSTCBCur->compTime=c ;// reset the counter (c ticks for computation)
+        OS_EXIT_CRITICAL();
+        OSTimeDly (toDelay);  // delay and wait (P-C) times
     }
+}
+
+void printCtxSwMessage(){
+        static int i=0;
+        //OSMboxPend(printCtxSwMbox,0,0);
+        for(;i<CtxSwMessageTop;i++)
+        printf("%s",CtxSwMessage[i]);
 }

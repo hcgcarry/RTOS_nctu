@@ -163,3 +163,7 @@ $(WORK)\INCLUDES.H:                   \
                COPY   $(PC)\PC.H            PC.H
                COPY   $(PORT)\OS_CPU.H      OS_CPU.H
                COPY   $(OS)\uCOS_II.H       uCOS_II.H
+
+clean:
+    cd ../$(obj)
+    delete *.*

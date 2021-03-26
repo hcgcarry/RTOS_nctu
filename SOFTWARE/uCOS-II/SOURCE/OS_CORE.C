@@ -37,6 +37,7 @@ INT8U  const  OSMapTbl[]   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 *********************************************************************************************************
 */
 
+
 INT8U  const  OSUnMapTbl[] = {
     0, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,       /* 0x00 to 0x0F                             */
     4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,       /* 0x10 to 0x1F                             */
@@ -55,6 +56,7 @@ INT8U  const  OSUnMapTbl[] = {
     5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,       /* 0xE0 to 0xEF                             */
     4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0        /* 0xF0 to 0xFF                             */
 };
+
 
 /*
 *********************************************************************************************************
@@ -176,6 +178,7 @@ void  OSIntExit (void)
 #endif
     
     
+    
     if (OSRunning == TRUE) {
         OS_ENTER_CRITICAL();
         if (OSIntNesting > 0) {                            /* Prevent OSIntNesting from wrapping       */
@@ -185,7 +188,10 @@ void  OSIntExit (void)
             OSIntExitY    = OSUnMapTbl[OSRdyGrp];          /* ... and not locked.                      */
             OSPrioHighRdy = (INT8U)((OSIntExitY << 3) + OSUnMapTbl[OSRdyTbl[OSIntExitY]]);
             if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy */
+                if(CtxSwMessageTop < CtxSwMessageSize)
+                sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d Preempt %5d %5d\n",OSTime,OSTCBCur->OSTCBPrio,OSTCBHighRdy);
                 OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy];
+                //OSMboxPost(printCtxSwMbox,(void*)1);
                 OSCtxSwCtr++;                              /* Keep track of the number of ctx switches */
                 OSIntCtxSw();                              /* Perform interrupt level ctx switch       */
             }
@@ -368,6 +374,9 @@ void  OSTimeTick (void)
 #endif    
     OS_TCB    *ptcb;
 
+    OS_ENTER_CRITICAL();                                   /* Update the 32-bit tick counter           */
+    OSTCBCur->compTime--;
+    OS_EXIT_CRITICAL();
 
     OSTimeTickHook();                                      /* Call user definable hook                 */
 #if OS_TIME_GET_SET_EN > 0   
@@ -879,7 +888,10 @@ void  OS_Sched (void)
         y             = OSUnMapTbl[OSRdyGrp];          /* Get pointer to HPT ready to run              */
         OSPrioHighRdy = (INT8U)((y << 3) + OSUnMapTbl[OSRdyTbl[y]]);
         if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy     */
+            if(CtxSwMessageTop < CtxSwMessageSize)
+            sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %5d %5d\n",OSTime,OSPrioCur,OSTCBHighRdy);
             OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
+            //OSMboxPost(printCtxSwMbox,(void*)1);
             OSCtxSwCtr++;                              /* Increment context switch counter             */
             OS_TASK_SW();                              /* Perform a context switch                     */
         }
