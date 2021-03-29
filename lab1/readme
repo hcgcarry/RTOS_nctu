@@ -1,0 +1,11 @@
+goToSource.bat :方便到達執行程式的dir
+
+kernel code:SOFTWARE\uCOS-II\SOURCE
+our code:SOFTWARE\uCOS-II\lab1\BC45\SOURCE
+makefile:SOFTWARE\uCOS-II\lab1\BC45\TEST
+
+compile & run:
+1.goToSource
+2.clean.bat
+3.maketest.bat
+4.test.exe
