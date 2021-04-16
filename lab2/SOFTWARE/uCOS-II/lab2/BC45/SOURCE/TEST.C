@@ -19,7 +19,7 @@
 */
 
 #define  TASK_STK_SIZE                 512       /* Size of each task's stacks (# of WORDs)            */
-#define  N_TASKS                        2       /* Number of identical tasks                          */
+#define  N_TASKS                        3       /* Number of identical tasks                          */
 #define debug
 
 /*
@@ -230,14 +230,14 @@ void ArgumentSet(void){
     OS_TCB* ptcb;
     ptcb = OSTCBList;
     while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3){
-        printf("Priority: %d set argument\n", ptcb->OSTCBPrio);
+        //printf("Priority: %d set argument\n", ptcb->OSTCBPrio);
         if(ptcb->OSTCBPrio==1){
             ptcb->compTime = 1;
-            ptcb->period = 3;
-            ptcb->deadLine = 3;
+            ptcb->period = 4;
+            ptcb->deadLine = 4;
         }
         else if(ptcb->OSTCBPrio==2){
-            ptcb->compTime = 3;
+            ptcb->compTime = 2;
             ptcb->period = 5;
             ptcb->deadLine = 5;
         }

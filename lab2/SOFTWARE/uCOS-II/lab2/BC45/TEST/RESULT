@@ -1,123 +1,511 @@
+Priority: 3 set argument
 Priority: 2 set argument
 Priority: 1 set argument
-    0 complete 0   1
- end task,start time 0,end time 1,to delay 2,prio:1,deadLine 3
-    1 complete 1   2
- end task,start time 0,end time 4,to delay 1,prio:2,deadLine 5
-    4 complete 2   1
- end task,start time 3,end time 5,to delay 1,prio:1,deadLine 6
-    5 complete 1   2
-    6 preempty 2   1
- end task,start time 6,end time 7,to delay 2,prio:1,deadLine 9
-    7 complete 1   2
- end task,start time 5,end time 9,to delay 1,prio:2,deadLine 10
-    9 complete 2   1
- end task,start time 9,end time 10,to delay 2,prio:1,deadLine 12
-   10 complete 1   2
- end task,start time 10,end time 13,to delay 2,prio:2,deadLine 15
-   13 complete 2   1
- end task,start time 12,end time 14,to delay 1,prio:1,deadLine 15
-   14 complete 1   12
-   15 preempty 12   1
- end task,start time 15,end time 16,to delay 2,prio:1,deadLine 18
-   16 complete 1   2
- end task,start time 15,end time 19,to delay 1,prio:2,deadLine 20
-   19 complete 2   1
- end task,start time 18,end time 20,to delay 1,prio:1,deadLine 21
-   20 complete 1   2
-   21 preempty 2   1
- end task,start time 21,end time 22,to delay 2,prio:1,deadLine 24
-   22 complete 1   2
- end task,start time 20,end time 24,to delay 1,prio:2,deadLine 25
-   24 complete 2   1
- end task,start time 24,end time 25,to delay 2,prio:1,deadLine 27
-   25 complete 1   2
+ end task,start time 0,end time 1,to delay 3,prio:1,deadLine 4
+ end task,start time 0,end time 3,to delay 2,prio:2,deadLine 5
+ end task,start time 4,end time 5,to delay 3,prio:1,deadLine 8
+ end task,start time 0,end time 6,to delay 4,prio:3,deadLine 10
+ end task,start time 5,end time 8,to delay 2,prio:2,deadLine 10
+ end task,start time 8,end time 9,to delay 3,prio:1,deadLine 12
+ end task,start time 10,end time 12,to delay 3,prio:2,deadLine 15
+ end task,start time 12,end time 13,to delay 3,prio:1,deadLine 16
+ end task,start time 10,end time 15,to delay 5,prio:3,deadLine 20
+ end task,start time 15,end time 17,to delay 3,prio:2,deadLine 20
+ end task,start time 16,end time 18,to delay 2,prio:1,deadLine 20
+ end task,start time 20,end time 21,to delay 3,prio:1,deadLine 24
+ end task,start time 20,end time 23,to delay 2,prio:2,deadLine 25
+ end task,start time 24,end time 25,to delay 3,prio:1,deadLine 28
+ end task,start time 20,end time 26,to delay 4,prio:3,deadLine 30
  end task,start time 25,end time 28,to delay 2,prio:2,deadLine 30
-   28 complete 2   1
- end task,start time 27,end time 29,to delay 1,prio:1,deadLine 30
-   29 complete 1   12
-   30 preempty 12   1
- end task,start time 30,end time 31,to delay 2,prio:1,deadLine 33
-   31 complete 1   2
- end task,start time 30,end time 34,to delay 1,prio:2,deadLine 35
-   34 complete 2   1
- end task,start time 33,end time 35,to delay 1,prio:1,deadLine 36
-   35 complete 1   2
-   36 preempty 2   1
- end task,start time 36,end time 37,to delay 2,prio:1,deadLine 39
-   37 complete 1   2
- end task,start time 35,end time 39,to delay 1,prio:2,deadLine 40
-   39 complete 2   1
- end task,start time 39,end time 40,to delay 2,prio:1,deadLine 42
-   40 complete 1   2
+ end task,start time 28,end time 29,to delay 3,prio:1,deadLine 32
+ end task,start time 30,end time 32,to delay 3,prio:2,deadLine 35
+ end task,start time 32,end time 33,to delay 3,prio:1,deadLine 36
+ end task,start time 30,end time 35,to delay 5,prio:3,deadLine 40
+ end task,start time 35,end time 37,to delay 3,prio:2,deadLine 40
+ end task,start time 36,end time 38,to delay 2,prio:1,deadLine 40
+ end task,start time 40,end time 41,to delay 3,prio:1,deadLine 44
  end task,start time 40,end time 43,to delay 2,prio:2,deadLine 45
-   43 complete 2   1
- end task,start time 42,end time 44,to delay 1,prio:1,deadLine 45
-   44 complete 1   12
-   45 preempty 12   1
- end task,start time 45,end time 46,to delay 2,prio:1,deadLine 48
-   46 complete 1   2
- end task,start time 45,end time 49,to delay 1,prio:2,deadLine 50
-   49 complete 2   1
- end task,start time 48,end time 50,to delay 1,prio:1,deadLine 51
-   50 complete 1   2
-   51 preempty 2   1
- end task,start time 51,end time 52,to delay 2,prio:1,deadLine 54
-   52 complete 1   2
- end task,start time 50,end time 54,to delay 1,prio:2,deadLine 55
-   54 complete 2   1
- end task,start time 54,end time 55,to delay 2,prio:1,deadLine 57
-   55 complete 1   2
- end task,start time 55,end time 58,to delay 2,prio:2,deadLine 60
-   58 complete 2   1
- end task,start time 57,end time 59,to delay 1,prio:1,deadLine 60
-   59 complete 1   12
-   60 preempty 12   1
- end task,start time 60,end time 61,to delay 2,prio:1,deadLine 63
-   61 complete 1   2
- end task,start time 60,end time 64,to delay 1,prio:2,deadLine 65
-   64 complete 2   1
- end task,start time 63,end time 65,to delay 1,prio:1,deadLine 66
-   65 complete 1   2
-   66 preempty 2   1
- end task,start time 66,end time 67,to delay 2,prio:1,deadLine 69
-   67 complete 1   2
- end task,start time 65,end time 69,to delay 1,prio:2,deadLine 70
-   69 complete 2   1
- end task,start time 69,end time 70,to delay 2,prio:1,deadLine 72
-   70 complete 1   2
- end task,start time 70,end time 73,to delay 2,prio:2,deadLine 75
-   73 complete 2   1
- end task,start time 72,end time 74,to delay 1,prio:1,deadLine 75
-   74 complete 1   12
-   75 preempty 12   1
- end task,start time 75,end time 76,to delay 2,prio:1,deadLine 78
-   76 complete 1   2
- end task,start time 75,end time 79,to delay 1,prio:2,deadLine 80
-   79 complete 2   1
- end task,start time 78,end time 80,to delay 1,prio:1,deadLine 81
-   80 complete 1   2
-   81 preempty 2   1
- end task,start time 81,end time 82,to delay 2,prio:1,deadLine 84
-   82 complete 1   2
- end task,start time 80,end time 84,to delay 1,prio:2,deadLine 85
-   84 complete 2   1
- end task,start time 84,end time 85,to delay 2,prio:1,deadLine 87
-   85 complete 1   2
+ end task,start time 44,end time 45,to delay 3,prio:1,deadLine 48
+ end task,start time 40,end time 46,to delay 4,prio:3,deadLine 50
+ end task,start time 45,end time 48,to delay 2,prio:2,deadLine 50
+ end task,start time 48,end time 49,to delay 3,prio:1,deadLine 52
+ end task,start time 50,end time 52,to delay 3,prio:2,deadLine 55
+ end task,start time 52,end time 53,to delay 3,prio:1,deadLine 56
+ end task,start time 50,end time 55,to delay 5,prio:3,deadLine 60
+ end task,start time 55,end time 57,to delay 3,prio:2,deadLine 60
+ end task,start time 56,end time 58,to delay 2,prio:1,deadLine 60
+ end task,start time 60,end time 61,to delay 3,prio:1,deadLine 64
+ end task,start time 60,end time 63,to delay 2,prio:2,deadLine 65
+ end task,start time 64,end time 65,to delay 3,prio:1,deadLine 68
+ end task,start time 60,end time 66,to delay 4,prio:3,deadLine 70
+ end task,start time 65,end time 68,to delay 2,prio:2,deadLine 70
+ end task,start time 68,end time 69,to delay 3,prio:1,deadLine 72
+ end task,start time 70,end time 72,to delay 3,prio:2,deadLine 75
+ end task,start time 72,end time 73,to delay 3,prio:1,deadLine 76
+ end task,start time 70,end time 75,to delay 5,prio:3,deadLine 80
+ end task,start time 75,end time 77,to delay 3,prio:2,deadLine 80
+ end task,start time 76,end time 78,to delay 2,prio:1,deadLine 80
+ end task,start time 80,end time 81,to delay 3,prio:1,deadLine 84
+ end task,start time 80,end time 83,to delay 2,prio:2,deadLine 85
+ end task,start time 84,end time 85,to delay 3,prio:1,deadLine 88
+ end task,start time 80,end time 86,to delay 4,prio:3,deadLine 90
  end task,start time 85,end time 88,to delay 2,prio:2,deadLine 90
+ end task,start time 88,end time 89,to delay 3,prio:1,deadLine 92
+ end task,start time 90,end time 92,to delay 3,prio:2,deadLine 95
+ end task,start time 92,end time 93,to delay 3,prio:1,deadLine 96
+ end task,start time 90,end time 95,to delay 5,prio:3,deadLine 100
+ end task,start time 95,end time 97,to delay 3,prio:2,deadLine 100
+ end task,start time 96,end time 98,to delay 2,prio:1,deadLine 100
+    0 complete 0   1
+    1 complete 1   2
+    3 complete 2   3
+    4 preempty 3   1
+    5 complete 1   3
+    6 complete 3   2
+    8 complete 2   1
+    9 complete 1   12
+   10 preempty 12   2
+   12 complete 2   1
+   13 complete 1   3
+   15 complete 3   2
+   17 complete 2   1
+   18 complete 1   12
+   20 preempty 12   1
+   21 complete 1   2
+   23 complete 2   3
+   24 preempty 3   1
+   25 complete 1   3
+   26 complete 3   2
+   28 complete 2   1
+   29 complete 1   12
+   30 preempty 12   2
+   32 complete 2   1
+   33 complete 1   3
+   35 complete 3   2
+   37 complete 2   1
+   38 complete 1   12
+   40 preempty 12   1
+   41 complete 1   2
+   43 complete 2   3
+   44 preempty 3   1
+   45 complete 1   3
+   46 complete 3   2
+   48 complete 2   1
+   49 complete 1   12
+   50 preempty 12   2
+   52 complete 2   1
+   53 complete 1   3
+   55 complete 3   2
+   57 complete 2   1
+   58 complete 1   12
+   60 preempty 12   1
+   61 complete 1   2
+   63 complete 2   3
+   64 preempty 3   1
+   65 complete 1   3
+   66 complete 3   2
+   68 complete 2   1
+   69 complete 1   12
+   70 preempty 12   2
+   72 complete 2   1
+   73 complete 1   3
+   75 complete 3   2
+   77 complete 2   1
+   78 complete 1   12
+   80 preempty 12   1
+   81 complete 1   2
+   83 complete 2   3
+   84 preempty 3   1
+   85 complete 1   3
+   86 complete 3   2
    88 complete 2   1
- end task,start time 87,end time 89,to delay 1,prio:1,deadLine 90
    89 complete 1   12
-   90 preempty 12   1
- end task,start time 90,end time 91,to delay 2,prio:1,deadLine 93
-   91 complete 1   2
- end task,start time 90,end time 94,to delay 1,prio:2,deadLine 95
-   94 complete 2   1
- end task,start time 93,end time 95,to delay 1,prio:1,deadLine 96
-   95 complete 1   2
-   96 preempty 2   1
- end task,start time 96,end time 97,to delay 2,prio:1,deadLine 99
-   97 complete 1   2
- end task,start time 95,end time 99,to delay 1,prio:2,deadLine 100
-   99 complete 2   1
-  100 preempty 1   0
+   90 preempty 12   2
+   92 complete 2   1
+   93 complete 1   3
+   95 complete 3   2
+   97 complete 2   1
+   98 complete 1   12
+  100 preempty 12   0
+ end task,start time 100,end time 103,to delay 1,prio:1,deadLine 104
+ end task,start time 100,end time 105,to delay 0,prio:2,deadLine 105
+ end task,start time 104,end time 107,to delay 1,prio:1,deadLine 108
+ end task,start time 100,end time 109,to delay 1,prio:3,deadLine 110
+ end task,start time 105,end time 110,to delay 0,prio:2,deadLine 110
+ end task,start time 108,end time 112,to delay 0,prio:1,deadLine 112
+ end task,start time 110,end time 114,to delay 1,prio:2,deadLine 115
+ end task,start time 112,end time 114,to delay 2,prio:1,deadLine 116
+ end task,start time 110,end time 116,to delay 4,prio:3,deadLine 120
+ end task,start time 115,end time 118,to delay 2,prio:2,deadLine 120
+ end task,start time 116,end time 119,to delay 1,prio:1,deadLine 120
+ end task,start time 120,end time 121,to delay 3,prio:1,deadLine 124
+ end task,start time 120,end time 123,to delay 2,prio:2,deadLine 125
+ end task,start time 124,end time 125,to delay 3,prio:1,deadLine 128
+ end task,start time 120,end time 126,to delay 4,prio:3,deadLine 130
+ end task,start time 125,end time 128,to delay 2,prio:2,deadLine 130
+ end task,start time 128,end time 129,to delay 3,prio:1,deadLine 132
+ end task,start time 130,end time 132,to delay 3,prio:2,deadLine 135
+ end task,start time 132,end time 133,to delay 3,prio:1,deadLine 136
+ end task,start time 130,end time 135,to delay 5,prio:3,deadLine 140
+ end task,start time 135,end time 137,to delay 3,prio:2,deadLine 140
+ end task,start time 136,end time 138,to delay 2,prio:1,deadLine 140
+ end task,start time 140,end time 141,to delay 3,prio:1,deadLine 144
+ end task,start time 140,end time 143,to delay 2,prio:2,deadLine 145
+ end task,start time 144,end time 145,to delay 3,prio:1,deadLine 148
+ end task,start time 140,end time 146,to delay 4,prio:3,deadLine 150
+ end task,start time 145,end time 148,to delay 2,prio:2,deadLine 150
+ end task,start time 148,end time 149,to delay 3,prio:1,deadLine 152
+ end task,start time 150,end time 152,to delay 3,prio:2,deadLine 155
+ end task,start time 152,end time 153,to delay 3,prio:1,deadLine 156
+ end task,start time 150,end time 155,to delay 5,prio:3,deadLine 160
+ end task,start time 155,end time 157,to delay 3,prio:2,deadLine 160
+ end task,start time 156,end time 158,to delay 2,prio:1,deadLine 160
+ end task,start time 160,end time 161,to delay 3,prio:1,deadLine 164
+ end task,start time 160,end time 163,to delay 2,prio:2,deadLine 165
+ end task,start time 164,end time 165,to delay 3,prio:1,deadLine 168
+ end task,start time 160,end time 166,to delay 4,prio:3,deadLine 170
+ end task,start time 165,end time 168,to delay 2,prio:2,deadLine 170
+ end task,start time 168,end time 169,to delay 3,prio:1,deadLine 172
+ end task,start time 170,end time 172,to delay 3,prio:2,deadLine 175
+ end task,start time 172,end time 173,to delay 3,prio:1,deadLine 176
+ end task,start time 170,end time 175,to delay 5,prio:3,deadLine 180
+ end task,start time 175,end time 177,to delay 3,prio:2,deadLine 180
+ end task,start time 176,end time 178,to delay 2,prio:1,deadLine 180
+ end task,start time 180,end time 181,to delay 3,prio:1,deadLine 184
+ end task,start time 180,end time 183,to delay 2,prio:2,deadLine 185
+ end task,start time 184,end time 185,to delay 3,prio:1,deadLine 188
+ end task,start time 180,end time 186,to delay 4,prio:3,deadLine 190
+ end task,start time 185,end time 188,to delay 2,prio:2,deadLine 190
+ end task,start time 188,end time 189,to delay 3,prio:1,deadLine 192
+ end task,start time 190,end time 192,to delay 3,prio:2,deadLine 195
+ end task,start time 192,end time 193,to delay 3,prio:1,deadLine 196
+ end task,start time 190,end time 195,to delay 5,prio:3,deadLine 200
+ end task,start time 195,end time 197,to delay 3,prio:2,deadLine 200
+ end task,start time 196,end time 198,to delay 2,prio:1,deadLine 200
+ end task,start time 200,end time 201,to delay 3,prio:1,deadLine 204
+  102 complete 0   1
+  103 complete 1   2
+  106 preempty 2   1
+  107 complete 1   3
+  109 complete 3   2
+  111 preempty 2   1
+  113 preempty 1   2
+  114 complete 2   1
+  114 complete 1   3
+  116 complete 3   2
+  118 complete 2   1
+  119 complete 1   12
+  120 preempty 12   1
+  121 complete 1   2
+  123 complete 2   3
+  124 preempty 3   1
+  125 complete 1   3
+  126 complete 3   2
+  128 complete 2   1
+  129 complete 1   12
+  130 preempty 12   2
+  132 complete 2   1
+  133 complete 1   3
+  135 complete 3   2
+  137 complete 2   1
+  138 complete 1   12
+  140 preempty 12   1
+  141 complete 1   2
+  143 complete 2   3
+  144 preempty 3   1
+  145 complete 1   3
+  146 complete 3   2
+  148 complete 2   1
+  149 complete 1   12
+  150 preempty 12   2
+  152 complete 2   1
+  153 complete 1   3
+  155 complete 3   2
+  157 complete 2   1
+  158 complete 1   12
+  160 preempty 12   1
+  161 complete 1   2
+  163 complete 2   3
+  164 preempty 3   1
+  165 complete 1   3
+  166 complete 3   2
+  168 complete 2   1
+  169 complete 1   12
+  170 preempty 12   2
+  172 complete 2   1
+  173 complete 1   3
+  175 complete 3   2
+  177 complete 2   1
+  178 complete 1   12
+  180 preempty 12   1
+  181 complete 1   2
+  183 complete 2   3
+  184 preempty 3   1
+  185 complete 1   3
+  186 complete 3   2
+  188 complete 2   1
+  189 complete 1   12
+  190 preempty 12   2
+  192 complete 2   1
+  193 complete 1   3
+  195 complete 3   2
+  197 complete 2   1
+  198 complete 1   12
+  200 preempty 12   1
+  201 complete 1   2
+  202 preempty 2   0
+ end task,start time 200,end time 205,to delay 0,prio:2,deadLine 205
+ end task,start time 204,end time 207,to delay 1,prio:1,deadLine 208
+ end task,start time 200,end time 209,to delay 1,prio:3,deadLine 210
+ end task,start time 205,end time 210,to delay 0,prio:2,deadLine 210
+ end task,start time 208,end time 212,to delay 0,prio:1,deadLine 212
+ end task,start time 210,end time 214,to delay 1,prio:2,deadLine 215
+ end task,start time 212,end time 214,to delay 2,prio:1,deadLine 216
+ end task,start time 210,end time 216,to delay 4,prio:3,deadLine 220
+ end task,start time 215,end time 218,to delay 2,prio:2,deadLine 220
+ end task,start time 216,end time 219,to delay 1,prio:1,deadLine 220
+ end task,start time 220,end time 221,to delay 3,prio:1,deadLine 224
+ end task,start time 220,end time 223,to delay 2,prio:2,deadLine 225
+ end task,start time 224,end time 225,to delay 3,prio:1,deadLine 228
+ end task,start time 220,end time 226,to delay 4,prio:3,deadLine 230
+ end task,start time 225,end time 228,to delay 2,prio:2,deadLine 230
+ end task,start time 228,end time 229,to delay 3,prio:1,deadLine 232
+ end task,start time 230,end time 232,to delay 3,prio:2,deadLine 235
+ end task,start time 232,end time 233,to delay 3,prio:1,deadLine 236
+ end task,start time 230,end time 235,to delay 5,prio:3,deadLine 240
+ end task,start time 235,end time 237,to delay 3,prio:2,deadLine 240
+ end task,start time 236,end time 238,to delay 2,prio:1,deadLine 240
+ end task,start time 240,end time 241,to delay 3,prio:1,deadLine 244
+ end task,start time 240,end time 243,to delay 2,prio:2,deadLine 245
+ end task,start time 244,end time 245,to delay 3,prio:1,deadLine 248
+ end task,start time 240,end time 246,to delay 4,prio:3,deadLine 250
+ end task,start time 245,end time 248,to delay 2,prio:2,deadLine 250
+ end task,start time 248,end time 249,to delay 3,prio:1,deadLine 252
+ end task,start time 250,end time 252,to delay 3,prio:2,deadLine 255
+ end task,start time 252,end time 253,to delay 3,prio:1,deadLine 256
+ end task,start time 250,end time 255,to delay 5,prio:3,deadLine 260
+ end task,start time 255,end time 257,to delay 3,prio:2,deadLine 260
+ end task,start time 256,end time 258,to delay 2,prio:1,deadLine 260
+ end task,start time 260,end time 261,to delay 3,prio:1,deadLine 264
+ end task,start time 260,end time 263,to delay 2,prio:2,deadLine 265
+ end task,start time 264,end time 265,to delay 3,prio:1,deadLine 268
+ end task,start time 260,end time 266,to delay 4,prio:3,deadLine 270
+ end task,start time 265,end time 268,to delay 2,prio:2,deadLine 270
+ end task,start time 268,end time 269,to delay 3,prio:1,deadLine 272
+ end task,start time 270,end time 272,to delay 3,prio:2,deadLine 275
+ end task,start time 272,end time 273,to delay 3,prio:1,deadLine 276
+ end task,start time 270,end time 275,to delay 5,prio:3,deadLine 280
+ end task,start time 275,end time 277,to delay 3,prio:2,deadLine 280
+ end task,start time 276,end time 278,to delay 2,prio:1,deadLine 280
+ end task,start time 280,end time 281,to delay 3,prio:1,deadLine 284
+ end task,start time 280,end time 283,to delay 2,prio:2,deadLine 285
+ end task,start time 284,end time 285,to delay 3,prio:1,deadLine 288
+ end task,start time 280,end time 286,to delay 4,prio:3,deadLine 290
+ end task,start time 285,end time 288,to delay 2,prio:2,deadLine 290
+ end task,start time 288,end time 289,to delay 3,prio:1,deadLine 292
+ end task,start time 290,end time 292,to delay 3,prio:2,deadLine 295
+ end task,start time 292,end time 293,to delay 3,prio:1,deadLine 296
+ end task,start time 290,end time 295,to delay 5,prio:3,deadLine 300
+ end task,start time 295,end time 297,to delay 3,prio:2,deadLine 300
+ end task,start time 296,end time 298,to delay 2,prio:1,deadLine 300
+ end task,start time 300,end time 301,to delay 3,prio:1,deadLine 304
+ end task,start time 300,end time 303,to delay 2,prio:2,deadLine 305
+  204 complete 0   2
+  206 preempty 2   1
+  207 complete 1   3
+  209 complete 3   2
+  211 preempty 2   1
+  213 preempty 1   2
+  214 complete 2   1
+  214 complete 1   3
+  216 complete 3   2
+  218 complete 2   1
+  219 complete 1   12
+  220 preempty 12   1
+  221 complete 1   2
+  223 complete 2   3
+  224 preempty 3   1
+  225 complete 1   3
+  226 complete 3   2
+  228 complete 2   1
+  229 complete 1   12
+  230 preempty 12   2
+  232 complete 2   1
+  233 complete 1   3
+  235 complete 3   2
+  237 complete 2   1
+  238 complete 1   12
+  240 preempty 12   1
+  241 complete 1   2
+  243 complete 2   3
+  244 preempty 3   1
+  245 complete 1   3
+  246 complete 3   2
+  248 complete 2   1
+  249 complete 1   12
+  250 preempty 12   2
+  252 complete 2   1
+  253 complete 1   3
+  255 complete 3   2
+  257 complete 2   1
+  258 complete 1   12
+  260 preempty 12   1
+  261 complete 1   2
+  263 complete 2   3
+  264 preempty 3   1
+  265 complete 1   3
+  266 complete 3   2
+  268 complete 2   1
+  269 complete 1   12
+  270 preempty 12   2
+  272 complete 2   1
+  273 complete 1   3
+  275 complete 3   2
+  277 complete 2   1
+  278 complete 1   12
+  280 preempty 12   1
+  281 complete 1   2
+  283 complete 2   3
+  284 preempty 3   1
+  285 complete 1   3
+  286 complete 3   2
+  288 complete 2   1
+  289 complete 1   12
+  290 preempty 12   2
+  292 complete 2   1
+  293 complete 1   3
+  295 complete 3   2
+  297 complete 2   1
+  298 complete 1   12
+  300 preempty 12   1
+  301 complete 1   2
+  303 complete 2   3
+  304 preempty 3   0
+ end task,start time 304,end time 307,to delay 1,prio:1,deadLine 308
+ end task,start time 300,end time 308,to delay 2,prio:3,deadLine 310
+ end task,start time 305,end time 310,to delay 0,prio:2,deadLine 310
+ end task,start time 308,end time 312,to delay 0,prio:1,deadLine 312
+ end task,start time 310,end time 314,to delay 1,prio:2,deadLine 315
+ end task,start time 312,end time 314,to delay 2,prio:1,deadLine 316
+ end task,start time 310,end time 316,to delay 4,prio:3,deadLine 320
+ end task,start time 315,end time 318,to delay 2,prio:2,deadLine 320
+ end task,start time 316,end time 319,to delay 1,prio:1,deadLine 320
+ end task,start time 320,end time 321,to delay 3,prio:1,deadLine 324
+ end task,start time 320,end time 323,to delay 2,prio:2,deadLine 325
+ end task,start time 324,end time 325,to delay 3,prio:1,deadLine 328
+ end task,start time 320,end time 326,to delay 4,prio:3,deadLine 330
+ end task,start time 325,end time 328,to delay 2,prio:2,deadLine 330
+ end task,start time 328,end time 329,to delay 3,prio:1,deadLine 332
+ end task,start time 330,end time 332,to delay 3,prio:2,deadLine 335
+ end task,start time 332,end time 333,to delay 3,prio:1,deadLine 336
+ end task,start time 330,end time 335,to delay 5,prio:3,deadLine 340
+ end task,start time 335,end time 337,to delay 3,prio:2,deadLine 340
+ end task,start time 336,end time 338,to delay 2,prio:1,deadLine 340
+ end task,start time 340,end time 341,to delay 3,prio:1,deadLine 344
+ end task,start time 340,end time 343,to delay 2,prio:2,deadLine 345
+ end task,start time 344,end time 345,to delay 3,prio:1,deadLine 348
+ end task,start time 340,end time 346,to delay 4,prio:3,deadLine 350
+ end task,start time 345,end time 348,to delay 2,prio:2,deadLine 350
+ end task,start time 348,end time 349,to delay 3,prio:1,deadLine 352
+ end task,start time 350,end time 352,to delay 3,prio:2,deadLine 355
+ end task,start time 352,end time 353,to delay 3,prio:1,deadLine 356
+ end task,start time 350,end time 355,to delay 5,prio:3,deadLine 360
+ end task,start time 355,end time 357,to delay 3,prio:2,deadLine 360
+ end task,start time 356,end time 358,to delay 2,prio:1,deadLine 360
+ end task,start time 360,end time 361,to delay 3,prio:1,deadLine 364
+ end task,start time 360,end time 363,to delay 2,prio:2,deadLine 365
+ end task,start time 364,end time 365,to delay 3,prio:1,deadLine 368
+ end task,start time 360,end time 366,to delay 4,prio:3,deadLine 370
+ end task,start time 365,end time 368,to delay 2,prio:2,deadLine 370
+ end task,start time 368,end time 369,to delay 3,prio:1,deadLine 372
+ end task,start time 370,end time 372,to delay 3,prio:2,deadLine 375
+ end task,start time 372,end time 373,to delay 3,prio:1,deadLine 376
+ end task,start time 370,end time 375,to delay 5,prio:3,deadLine 380
+ end task,start time 375,end time 377,to delay 3,prio:2,deadLine 380
+ end task,start time 376,end time 378,to delay 2,prio:1,deadLine 380
+ end task,start time 380,end time 381,to delay 3,prio:1,deadLine 384
+ end task,start time 380,end time 383,to delay 2,prio:2,deadLine 385
+ end task,start time 384,end time 385,to delay 3,prio:1,deadLine 388
+ end task,start time 380,end time 386,to delay 4,prio:3,deadLine 390
+ end task,start time 385,end time 388,to delay 2,prio:2,deadLine 390
+ end task,start time 388,end time 389,to delay 3,prio:1,deadLine 392
+ end task,start time 390,end time 392,to delay 3,prio:2,deadLine 395
+ end task,start time 392,end time 393,to delay 3,prio:1,deadLine 396
+ end task,start time 390,end time 395,to delay 5,prio:3,deadLine 400
+ end task,start time 395,end time 397,to delay 3,prio:2,deadLine 400
+ end task,start time 396,end time 398,to delay 2,prio:1,deadLine 400
+ end task,start time 400,end time 401,to delay 3,prio:1,deadLine 404
+ end task,start time 400,end time 403,to delay 2,prio:2,deadLine 405
+ end task,start time 404,end time 405,to delay 3,prio:1,deadLine 408
+  306 complete 0   1
+  307 complete 1   3
+  308 complete 3   2
+  311 preempty 2   1
+  313 preempty 1   2
+  314 complete 2   1
+  314 complete 1   3
+  316 complete 3   2
+  318 complete 2   1
+  319 complete 1   12
+  320 preempty 12   1
+  321 complete 1   2
+  323 complete 2   3
+  324 preempty 3   1
+  325 complete 1   3
+  326 complete 3   2
+  328 complete 2   1
+  329 complete 1   12
+  330 preempty 12   2
+  332 complete 2   1
+  333 complete 1   3
+  335 complete 3   2
+  337 complete 2   1
+  338 complete 1   12
+  340 preempty 12   1
+  341 complete 1   2
+  343 complete 2   3
+  344 preempty 3   1
+  345 complete 1   3
+  346 complete 3   2
+  348 complete 2   1
+  349 complete 1   12
+  350 preempty 12   2
+  352 complete 2   1
+  353 complete 1   3
+  355 complete 3   2
+  357 complete 2   1
+  358 complete 1   12
+  360 preempty 12   1
+  361 complete 1   2
+  363 complete 2   3
+  364 preempty 3   1
+  365 complete 1   3
+  366 complete 3   2
+  368 complete 2   1
+  369 complete 1   12
+  370 preempty 12   2
+  372 complete 2   1
+  373 complete 1   3
+  375 complete 3   2
+  377 complete 2   1
+  378 complete 1   12
+  380 preempty 12   1
+  381 complete 1   2
+  383 complete 2   3
+  384 preempty 3   1
+  385 complete 1   3
+  386 complete 3   2
+  388 complete 2   1
+  389 complete 1   12
+  390 preempty 12   2
+  392 complete 2   1
+  393 complete 1   3
+  395 complete 3   2
+  397 complete 2   1
+  398 complete 1   12
+  400 preempty 12   1
+  401 complete 1   2
+  403 complete 2   3
+  404 preempty 3   1
+  405 complete 1   3
+  406 preempty 3   0

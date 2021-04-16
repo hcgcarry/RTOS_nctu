@@ -222,8 +222,8 @@ void  OSIntExit (void)
             //printf("----- OSIntExitEnd------\n");
             if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy */
                 if(CtxSwMessageTop < CtxSwMessageSize)
-                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
-                printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+                sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+                //printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
                 OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy];
                 //OSMboxPost(printCtxSwMbox,(void*)1);
                 OSCtxSwCtr++;                              /* Keep track of the number of ctx switches */
@@ -922,8 +922,8 @@ void  OS_Sched (void)
         //printf("-----OS_Sched end----------\n");
         if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy     */
             if(CtxSwMessageTop < CtxSwMessageSize)
-            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
-            printf("%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+            sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+            //printf("%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
             OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
             //OSMboxPost(printCtxSwMbox,(void*)1);
             OSCtxSwCtr++;                              /* Increment context switch counter             */
