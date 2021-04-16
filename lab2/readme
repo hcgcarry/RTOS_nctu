@@ -9,3 +9,17 @@ compile & run:
 2.clean.bat
 3.maketest.bat
 4.test.exe
+
+*想要看compile的error
+打開maketest.bat，在22行的最後加上 > ../TEST/COMPILE.LOG
+
+* 修改的file
+test.C
+os_task.c 的ostaskcreate 把os_sched()註解調
+os_core.c ,osintexit ,os_sched,osstart,getPrioHightRdy
+
+
+* test.c 裡面的tickrate設小一點,遇到一對I/O時stdout才不會爛掉
+就算設成1u 也不要放太多Printf
+執行的時候exe 要按多次一點才會退出
+

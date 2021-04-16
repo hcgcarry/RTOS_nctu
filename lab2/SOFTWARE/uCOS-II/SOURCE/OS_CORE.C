@@ -183,7 +183,7 @@ void printTCBList(){
 }
 INT8U getPrioHightRdy(){
     OS_TCB    *ptcb;
-    INT8U prioHighRdy=12;
+    INT8U prioHighRdy=OS_IDLE_PRIO;
     INT16U deadLine=10000;
     //printTCBList();
     ptcb = OSTCBList;                                  /* Point at first TCB in TCB list           */
