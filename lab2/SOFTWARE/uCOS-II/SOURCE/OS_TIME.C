@@ -46,7 +46,7 @@ void  OSTimeDly (INT16U ticks)
         }
         OSTCBCur->OSTCBDly = ticks;                                       /* Load ticks in TCB         */
         OS_EXIT_CRITICAL();
-        sprintf(&CtxSwMessage[CtxSwMessageTop++],"OSTimeDly ,time tick %d ,prio %d , deadline %d,ticks %d,OSTCBDly %d\n",(int)OSTime,(int)OSPrioCur,(int)OSTCBCur->deadLine,(int)ticks,(int)OSTCBCur->OSTCBDly);
+        //sprintf(&CtxSwMessage[CtxSwMessageTop++],"OSTimeDly ,time tick %d ,prio %d , deadline %d,ticks %d,OSTCBDly %d\n",(int)OSTime,(int)OSPrioCur,(int)OSTCBCur->deadLine,(int)ticks,(int)OSTCBCur->OSTCBDly);
         OS_Sched();                                                       /* Find next task to run!    */
     }
 }

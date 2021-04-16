@@ -182,7 +182,7 @@ INT8U  OSTaskCreate (void (*task)(void *pd), void *pdata, OS_STK *ptos, INT8U pr
             OSTaskCtr++;                                        /* Increment the #tasks counter        */
             OS_EXIT_CRITICAL();
             if (OSRunning == TRUE) {         /* Find highest priority task if multitasking has started */
-                OS_Sched();
+                //OS_Sched();
             }
         } else {
             OS_ENTER_CRITICAL();

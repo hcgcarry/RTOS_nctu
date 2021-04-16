@@ -185,16 +185,18 @@ INT8U getPrioHightRdy(){
     OS_TCB    *ptcb;
     INT8U prioHighRdy=12;
     INT16U deadLine=10000;
-    printTCBList();
+    //printTCBList();
     ptcb = OSTCBList;                                  /* Point at first TCB in TCB list           */
-    while (ptcb->OSTCBPrio != OS_IDLE_PRIO && ptcb->OSTCBDly==0) {          
-        if(ptcb->deadLine < deadLine){
+    while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3 || ptcb->OSTCBPrio==0){
+        if(ptcb->OSTCBStat==OS_STAT_RDY && !ptcb->OSTCBDly && ptcb->deadLine<deadLine){
             prioHighRdy = ptcb->OSTCBPrio;
             deadLine = ptcb->deadLine;
         }
+        //printf("Priority:%d\tDeadline:%d\tOSTCBDly:%d,compTime %d\n", (int)ptcb->OSTCBPrio,(int) ptcb->deadLine,(int) ptcb->OSTCBDly,(int)ptcb->compTime);
         ptcb = ptcb->OSTCBNext;                        /* Point at next TCB in TCB list            */
     }
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"time %d,deadline %d ,prioHighRdy %d, curPrio %d\n",(int)OSTime,(int)deadLine,(int)prioHighRdy,(int)OSPrioCur);
+    //printf("select Priority:%d\n",(int)prioHighRdy);
+    //sprintf(&CtxSwMessage[CtxSwMessageTop++],"time %d,deadline %d ,prioHighRdy %d, curPrio %d\n",(int)OSTime,(int)deadLine,(int)prioHighRdy,(int)OSPrioCur);
     return prioHighRdy;
 }
 void  OSIntExit (void)
@@ -211,13 +213,17 @@ void  OSIntExit (void)
         if (OSIntNesting > 0) {                            /* Prevent OSIntNesting from wrapping       */
             OSIntNesting--;
         }
+        //printf("OS_intexit: prio %d,OSINTnesting %d,lock %d,tick %d\n",(int)OSPrioCur,(int)OSIntNesting,(int)OSLockNesting,(int)OSTime);
         if ((OSIntNesting == 0) && (OSLockNesting == 0)) { /* Reschedule only if all ISRs complete ... */
             //OSIntExitY    = OSUnMapTbl[OSRdyGrp];          /* ... and not locked.                      */
             //OSPrioHighRdy = (INT8U)((OSIntExitY << 3) + OSUnMapTbl[OSRdyTbl[OSIntExitY]]);
+            //printf("----- OSIntExit tick %d------\n",(int)OSTime);
             OSPrioHighRdy = getPrioHightRdy();
+            //printf("----- OSIntExitEnd------\n");
             if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy */
                 if(CtxSwMessageTop < CtxSwMessageSize)
-                sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+                printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
                 OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy];
                 //OSMboxPost(printCtxSwMbox,(void*)1);
                 OSCtxSwCtr++;                              /* Keep track of the number of ctx switches */
@@ -907,15 +913,17 @@ void  OS_Sched (void)
     OS_CPU_SR  cpu_sr;
 #endif    
 
-    //printf("OS_sched: prio %d\n",(int)OSPrioCur);
 
     OS_ENTER_CRITICAL();
+    //printf("OS_sched: prio %d,OSINTnesting %d,lock %d,tick\n",(int)OSPrioCur,(int)OSIntNesting,(int)OSLockNesting,(int)OSTime);
     if ((OSIntNesting == 0) && (OSLockNesting == 0)) { /* Sched. only if all ISRs done & not locked    */
+        //printf("-----OS_Sched tick %d----------\n",(int)OSTime);
         OSPrioHighRdy = getPrioHightRdy();
+        //printf("-----OS_Sched end----------\n");
         if (OSPrioHighRdy != OSPrioCur) {              /* No Ctx Sw if current task is highest rdy     */
             if(CtxSwMessageTop < CtxSwMessageSize)
-            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d--- %d\n",(int)OSTime,(int)OSTCBCur->prio,(int)OSPrioHightRdy);
-            sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+            printf("%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
             OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
             //OSMboxPost(printCtxSwMbox,(void*)1);
             OSCtxSwCtr++;                              /* Increment context switch counter             */

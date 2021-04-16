@@ -1,146 +1,123 @@
- end task,time tick2,to delay 1,prio:1,deadLine 6
- end task,time tick6,to delay 0,prio:2,deadLine 12
---- enter taskStart
- end task,time tick1,to delay 5,prio:1,deadLine 9
- end task,time tick3,to delay 9,prio:2,deadLine 18
-time:13 task:1 exceed deadline 9
- end task,time tick13,to delay 3,prio:1,deadLine 19
---- enter taskStart
---- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 0
-time 1,deadline 1 ,prioHighRdy 0, curPrio 0
---- list time tick 1 ,prio 1 , deadLine 0,OSTCBDly 0
---- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 0
-time 1,deadline 0 ,prioHighRdy 1, curPrio 0
-    1 complete 0   1
---- list time tick 2 ,prio 1 , deadLine 0,OSTCBDly 0
---- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 0
-time 2,deadline 0 ,prioHighRdy 1, curPrio 1
-OSTimeDly ,time tick 2 ,prio 1 , deadline 6,ticks 1,OSTCBDly 1
---- list time tick 2 ,prio 1 , deadLine 6,OSTCBDly 1
---- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 0
-time 2,deadline 10000 ,prioHighRdy 12, curPrio 1
-    2 complete 1   12
---- list time tick 3 ,prio 1 , deadLine 6,OSTCBDly 0
---- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 0
-time 3,deadline 1 ,prioHighRdy 0, curPrio 12
-    3 preempty 12   0
---- list time tick 3 ,prio 2 , deadLine 0,OSTCBDly 0
---- list time tick 3 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 0
-time 3,deadline 0 ,prioHighRdy 2, curPrio 0
-    3 complete 0   2
---- list time tick 4 ,prio 2 , deadLine 0,OSTCBDly 0
---- list time tick 4 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 4 ,prio 0 , deadLine 1,OSTCBDly 0
-time 4,deadline 0 ,prioHighRdy 2, curPrio 2
---- list time tick 5 ,prio 2 , deadLine 0,OSTCBDly 0
---- list time tick 5 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 5 ,prio 0 , deadLine 1,OSTCBDly 0
-time 5,deadline 0 ,prioHighRdy 2, curPrio 2
---- list time tick 6 ,prio 2 , deadLine 0,OSTCBDly 0
---- list time tick 6 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 6 ,prio 0 , deadLine 1,OSTCBDly 0
-time 6,deadline 0 ,prioHighRdy 2, curPrio 2
---- list time tick 7 ,prio 2 , deadLine 12,OSTCBDly 0
---- list time tick 7 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 7 ,prio 0 , deadLine 1,OSTCBDly 0
-time 7,deadline 1 ,prioHighRdy 0, curPrio 2
-    7 preempty 2   0
-OSTimeDly ,time tick 0 ,prio 0 , deadline 1,ticks 14,OSTCBDly 14
---- list time tick 0 ,prio 2 , deadLine 6,OSTCBDly 0
---- list time tick 0 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 0 ,prio 0 , deadLine 1,OSTCBDly 14
-time 0,deadline 3 ,prioHighRdy 1, curPrio 0
+Priority: 2 set argument
+Priority: 1 set argument
     0 complete 0   1
---- list time tick 1 ,prio 2 , deadLine 6,OSTCBDly 0
---- list time tick 1 ,prio 1 , deadLine 3,OSTCBDly 0
---- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 13
-time 1,deadline 3 ,prioHighRdy 1, curPrio 1
-OSTimeDly ,time tick 1 ,prio 1 , deadline 9,ticks 5,OSTCBDly 5
---- list time tick 1 ,prio 2 , deadLine 6,OSTCBDly 0
---- list time tick 1 ,prio 1 , deadLine 9,OSTCBDly 5
---- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 13
-time 1,deadline 6 ,prioHighRdy 2, curPrio 1
+ end task,start time 0,end time 1,to delay 2,prio:1,deadLine 3
     1 complete 1   2
---- list time tick 2 ,prio 2 , deadLine 6,OSTCBDly 0
---- list time tick 2 ,prio 1 , deadLine 9,OSTCBDly 4
---- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 12
-time 2,deadline 6 ,prioHighRdy 2, curPrio 2
---- list time tick 3 ,prio 2 , deadLine 6,OSTCBDly 0
---- list time tick 3 ,prio 1 , deadLine 9,OSTCBDly 3
---- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 11
-time 3,deadline 6 ,prioHighRdy 2, curPrio 2
-OSTimeDly ,time tick 3 ,prio 2 , deadline 18,ticks 9,OSTCBDly 9
---- list time tick 3 ,prio 2 , deadLine 18,OSTCBDly 9
---- list time tick 3 ,prio 1 , deadLine 9,OSTCBDly 3
---- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 11
-time 3,deadline 10000 ,prioHighRdy 12, curPrio 2
-    3 complete 2   12
---- list time tick 4 ,prio 2 , deadLine 18,OSTCBDly 8
---- list time tick 4 ,prio 1 , deadLine 9,OSTCBDly 2
---- list time tick 4 ,prio 0 , deadLine 1,OSTCBDly 10
-time 4,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 5 ,prio 2 , deadLine 18,OSTCBDly 7
---- list time tick 5 ,prio 1 , deadLine 9,OSTCBDly 1
---- list time tick 5 ,prio 0 , deadLine 1,OSTCBDly 9
-time 5,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 6 ,prio 2 , deadLine 18,OSTCBDly 6
---- list time tick 6 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 6 ,prio 0 , deadLine 1,OSTCBDly 8
-time 6,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 7 ,prio 2 , deadLine 18,OSTCBDly 5
---- list time tick 7 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 7 ,prio 0 , deadLine 1,OSTCBDly 7
-time 7,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 8 ,prio 2 , deadLine 18,OSTCBDly 4
---- list time tick 8 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 8 ,prio 0 , deadLine 1,OSTCBDly 6
-time 8,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 9 ,prio 2 , deadLine 18,OSTCBDly 3
---- list time tick 9 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 9 ,prio 0 , deadLine 1,OSTCBDly 5
-time 9,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 10 ,prio 2 , deadLine 18,OSTCBDly 2
---- list time tick 10 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 10 ,prio 0 , deadLine 1,OSTCBDly 4
-time 10,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 11 ,prio 2 , deadLine 18,OSTCBDly 1
---- list time tick 11 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 11 ,prio 0 , deadLine 1,OSTCBDly 3
-time 11,deadline 10000 ,prioHighRdy 12, curPrio 12
---- list time tick 12 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 12 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 12 ,prio 0 , deadLine 1,OSTCBDly 2
-time 12,deadline 9 ,prioHighRdy 1, curPrio 12
-   12 preempty 12   1
---- list time tick 13 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 13 ,prio 1 , deadLine 9,OSTCBDly 0
---- list time tick 13 ,prio 0 , deadLine 1,OSTCBDly 1
-time 13,deadline 9 ,prioHighRdy 1, curPrio 1
-OSTimeDly ,time tick 13 ,prio 1 , deadline 19,ticks 3,OSTCBDly 3
---- list time tick 13 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 13 ,prio 1 , deadLine 19,OSTCBDly 3
---- list time tick 13 ,prio 0 , deadLine 1,OSTCBDly 1
-time 13,deadline 18 ,prioHighRdy 2, curPrio 1
-   13 complete 1   2
---- list time tick 14 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 14 ,prio 1 , deadLine 19,OSTCBDly 2
---- list time tick 14 ,prio 0 , deadLine 1,OSTCBDly 0
-time 14,deadline 18 ,prioHighRdy 2, curPrio 2
---- list time tick 15 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 15 ,prio 1 , deadLine 19,OSTCBDly 1
---- list time tick 15 ,prio 0 , deadLine 1,OSTCBDly 0
-time 15,deadline 18 ,prioHighRdy 2, curPrio 2
---- list time tick 16 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 16 ,prio 1 , deadLine 19,OSTCBDly 0
---- list time tick 16 ,prio 0 , deadLine 1,OSTCBDly 0
-time 16,deadline 1 ,prioHighRdy 0, curPrio 2
-   16 preempty 2   0
---- list time tick 17 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 17 ,prio 1 , deadLine 19,OSTCBDly 0
---- list time tick 17 ,prio 0 , deadLine 1,OSTCBDly 0
-time 17,deadline 1 ,prioHighRdy 0, curPrio 0
---- list time tick 18 ,prio 2 , deadLine 18,OSTCBDly 0
---- list time tick 18 ,prio 1 , deadLine 19,OSTCBDly 0
---- list time tick 18 ,prio 0 , deadLine 1,OSTCBDly 0
-time 18,deadline 1 
+ end task,start time 0,end time 4,to delay 1,prio:2,deadLine 5
+    4 complete 2   1
+ end task,start time 3,end time 5,to delay 1,prio:1,deadLine 6
+    5 complete 1   2
+    6 preempty 2   1
+ end task,start time 6,end time 7,to delay 2,prio:1,deadLine 9
+    7 complete 1   2
+ end task,start time 5,end time 9,to delay 1,prio:2,deadLine 10
+    9 complete 2   1
+ end task,start time 9,end time 10,to delay 2,prio:1,deadLine 12
+   10 complete 1   2
+ end task,start time 10,end time 13,to delay 2,prio:2,deadLine 15
+   13 complete 2   1
+ end task,start time 12,end time 14,to delay 1,prio:1,deadLine 15
+   14 complete 1   12
+   15 preempty 12   1
+ end task,start time 15,end time 16,to delay 2,prio:1,deadLine 18
+   16 complete 1   2
+ end task,start time 15,end time 19,to delay 1,prio:2,deadLine 20
+   19 complete 2   1
+ end task,start time 18,end time 20,to delay 1,prio:1,deadLine 21
+   20 complete 1   2
+   21 preempty 2   1
+ end task,start time 21,end time 22,to delay 2,prio:1,deadLine 24
+   22 complete 1   2
+ end task,start time 20,end time 24,to delay 1,prio:2,deadLine 25
+   24 complete 2   1
+ end task,start time 24,end time 25,to delay 2,prio:1,deadLine 27
+   25 complete 1   2
+ end task,start time 25,end time 28,to delay 2,prio:2,deadLine 30
+   28 complete 2   1
+ end task,start time 27,end time 29,to delay 1,prio:1,deadLine 30
+   29 complete 1   12
+   30 preempty 12   1
+ end task,start time 30,end time 31,to delay 2,prio:1,deadLine 33
+   31 complete 1   2
+ end task,start time 30,end time 34,to delay 1,prio:2,deadLine 35
+   34 complete 2   1
+ end task,start time 33,end time 35,to delay 1,prio:1,deadLine 36
+   35 complete 1   2
+   36 preempty 2   1
+ end task,start time 36,end time 37,to delay 2,prio:1,deadLine 39
+   37 complete 1   2
+ end task,start time 35,end time 39,to delay 1,prio:2,deadLine 40
+   39 complete 2   1
+ end task,start time 39,end time 40,to delay 2,prio:1,deadLine 42
+   40 complete 1   2
+ end task,start time 40,end time 43,to delay 2,prio:2,deadLine 45
+   43 complete 2   1
+ end task,start time 42,end time 44,to delay 1,prio:1,deadLine 45
+   44 complete 1   12
+   45 preempty 12   1
+ end task,start time 45,end time 46,to delay 2,prio:1,deadLine 48
+   46 complete 1   2
+ end task,start time 45,end time 49,to delay 1,prio:2,deadLine 50
+   49 complete 2   1
+ end task,start time 48,end time 50,to delay 1,prio:1,deadLine 51
+   50 complete 1   2
+   51 preempty 2   1
+ end task,start time 51,end time 52,to delay 2,prio:1,deadLine 54
+   52 complete 1   2
+ end task,start time 50,end time 54,to delay 1,prio:2,deadLine 55
+   54 complete 2   1
+ end task,start time 54,end time 55,to delay 2,prio:1,deadLine 57
+   55 complete 1   2
+ end task,start time 55,end time 58,to delay 2,prio:2,deadLine 60
+   58 complete 2   1
+ end task,start time 57,end time 59,to delay 1,prio:1,deadLine 60
+   59 complete 1   12
+   60 preempty 12   1
+ end task,start time 60,end time 61,to delay 2,prio:1,deadLine 63
+   61 complete 1   2
+ end task,start time 60,end time 64,to delay 1,prio:2,deadLine 65
+   64 complete 2   1
+ end task,start time 63,end time 65,to delay 1,prio:1,deadLine 66
+   65 complete 1   2
+   66 preempty 2   1
+ end task,start time 66,end time 67,to delay 2,prio:1,deadLine 69
+   67 complete 1   2
+ end task,start time 65,end time 69,to delay 1,prio:2,deadLine 70
+   69 complete 2   1
+ end task,start time 69,end time 70,to delay 2,prio:1,deadLine 72
+   70 complete 1   2
+ end task,start time 70,end time 73,to delay 2,prio:2,deadLine 75
+   73 complete 2   1
+ end task,start time 72,end time 74,to delay 1,prio:1,deadLine 75
+   74 complete 1   12
+   75 preempty 12   1
+ end task,start time 75,end time 76,to delay 2,prio:1,deadLine 78
+   76 complete 1   2
+ end task,start time 75,end time 79,to delay 1,prio:2,deadLine 80
+   79 complete 2   1
+ end task,start time 78,end time 80,to delay 1,prio:1,deadLine 81
+   80 complete 1   2
+   81 preempty 2   1
+ end task,start time 81,end time 82,to delay 2,prio:1,deadLine 84
+   82 complete 1   2
+ end task,start time 80,end time 84,to delay 1,prio:2,deadLine 85
+   84 complete 2   1
+ end task,start time 84,end time 85,to delay 2,prio:1,deadLine 87
+   85 complete 1   2
+ end task,start time 85,end time 88,to delay 2,prio:2,deadLine 90
+   88 complete 2   1
+ end task,start time 87,end time 89,to delay 1,prio:1,deadLine 90
+   89 complete 1   12
+   90 preempty 12   1
+ end task,start time 90,end time 91,to delay 2,prio:1,deadLine 93
+   91 complete 1   2
+ end task,start time 90,end time 94,to delay 1,prio:2,deadLine 95
+   94 complete 2   1
+ end task,start time 93,end time 95,to delay 1,prio:1,deadLine 96
+   95 complete 1   2
+   96 preempty 2   1
+ end task,start time 96,end time 97,to delay 2,prio:1,deadLine 99
+   97 complete 1   2
+ end task,start time 95,end time 99,to delay 1,prio:2,deadLine 100
+   99 complete 2   1
+  100 preempty 1   0
