@@ -1,0 +1,146 @@
+ end task,time tick2,to delay 1,prio:1,deadLine 6
+ end task,time tick6,to delay 0,prio:2,deadLine 12
+--- enter taskStart
+ end task,time tick1,to delay 5,prio:1,deadLine 9
+ end task,time tick3,to delay 9,prio:2,deadLine 18
+time:13 task:1 exceed deadline 9
+ end task,time tick13,to delay 3,prio:1,deadLine 19
+--- enter taskStart
+--- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 0
+time 1,deadline 1 ,prioHighRdy 0, curPrio 0
+--- list time tick 1 ,prio 1 , deadLine 0,OSTCBDly 0
+--- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 0
+time 1,deadline 0 ,prioHighRdy 1, curPrio 0
+    1 complete 0   1
+--- list time tick 2 ,prio 1 , deadLine 0,OSTCBDly 0
+--- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 0
+time 2,deadline 0 ,prioHighRdy 1, curPrio 1
+OSTimeDly ,time tick 2 ,prio 1 , deadline 6,ticks 1,OSTCBDly 1
+--- list time tick 2 ,prio 1 , deadLine 6,OSTCBDly 1
+--- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 0
+time 2,deadline 10000 ,prioHighRdy 12, curPrio 1
+    2 complete 1   12
+--- list time tick 3 ,prio 1 , deadLine 6,OSTCBDly 0
+--- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 0
+time 3,deadline 1 ,prioHighRdy 0, curPrio 12
+    3 preempty 12   0
+--- list time tick 3 ,prio 2 , deadLine 0,OSTCBDly 0
+--- list time tick 3 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 0
+time 3,deadline 0 ,prioHighRdy 2, curPrio 0
+    3 complete 0   2
+--- list time tick 4 ,prio 2 , deadLine 0,OSTCBDly 0
+--- list time tick 4 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 4 ,prio 0 , deadLine 1,OSTCBDly 0
+time 4,deadline 0 ,prioHighRdy 2, curPrio 2
+--- list time tick 5 ,prio 2 , deadLine 0,OSTCBDly 0
+--- list time tick 5 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 5 ,prio 0 , deadLine 1,OSTCBDly 0
+time 5,deadline 0 ,prioHighRdy 2, curPrio 2
+--- list time tick 6 ,prio 2 , deadLine 0,OSTCBDly 0
+--- list time tick 6 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 6 ,prio 0 , deadLine 1,OSTCBDly 0
+time 6,deadline 0 ,prioHighRdy 2, curPrio 2
+--- list time tick 7 ,prio 2 , deadLine 12,OSTCBDly 0
+--- list time tick 7 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 7 ,prio 0 , deadLine 1,OSTCBDly 0
+time 7,deadline 1 ,prioHighRdy 0, curPrio 2
+    7 preempty 2   0
+OSTimeDly ,time tick 0 ,prio 0 , deadline 1,ticks 14,OSTCBDly 14
+--- list time tick 0 ,prio 2 , deadLine 6,OSTCBDly 0
+--- list time tick 0 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 0 ,prio 0 , deadLine 1,OSTCBDly 14
+time 0,deadline 3 ,prioHighRdy 1, curPrio 0
+    0 complete 0   1
+--- list time tick 1 ,prio 2 , deadLine 6,OSTCBDly 0
+--- list time tick 1 ,prio 1 , deadLine 3,OSTCBDly 0
+--- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 13
+time 1,deadline 3 ,prioHighRdy 1, curPrio 1
+OSTimeDly ,time tick 1 ,prio 1 , deadline 9,ticks 5,OSTCBDly 5
+--- list time tick 1 ,prio 2 , deadLine 6,OSTCBDly 0
+--- list time tick 1 ,prio 1 , deadLine 9,OSTCBDly 5
+--- list time tick 1 ,prio 0 , deadLine 1,OSTCBDly 13
+time 1,deadline 6 ,prioHighRdy 2, curPrio 1
+    1 complete 1   2
+--- list time tick 2 ,prio 2 , deadLine 6,OSTCBDly 0
+--- list time tick 2 ,prio 1 , deadLine 9,OSTCBDly 4
+--- list time tick 2 ,prio 0 , deadLine 1,OSTCBDly 12
+time 2,deadline 6 ,prioHighRdy 2, curPrio 2
+--- list time tick 3 ,prio 2 , deadLine 6,OSTCBDly 0
+--- list time tick 3 ,prio 1 , deadLine 9,OSTCBDly 3
+--- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 11
+time 3,deadline 6 ,prioHighRdy 2, curPrio 2
+OSTimeDly ,time tick 3 ,prio 2 , deadline 18,ticks 9,OSTCBDly 9
+--- list time tick 3 ,prio 2 , deadLine 18,OSTCBDly 9
+--- list time tick 3 ,prio 1 , deadLine 9,OSTCBDly 3
+--- list time tick 3 ,prio 0 , deadLine 1,OSTCBDly 11
+time 3,deadline 10000 ,prioHighRdy 12, curPrio 2
+    3 complete 2   12
+--- list time tick 4 ,prio 2 , deadLine 18,OSTCBDly 8
+--- list time tick 4 ,prio 1 , deadLine 9,OSTCBDly 2
+--- list time tick 4 ,prio 0 , deadLine 1,OSTCBDly 10
+time 4,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 5 ,prio 2 , deadLine 18,OSTCBDly 7
+--- list time tick 5 ,prio 1 , deadLine 9,OSTCBDly 1
+--- list time tick 5 ,prio 0 , deadLine 1,OSTCBDly 9
+time 5,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 6 ,prio 2 , deadLine 18,OSTCBDly 6
+--- list time tick 6 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 6 ,prio 0 , deadLine 1,OSTCBDly 8
+time 6,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 7 ,prio 2 , deadLine 18,OSTCBDly 5
+--- list time tick 7 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 7 ,prio 0 , deadLine 1,OSTCBDly 7
+time 7,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 8 ,prio 2 , deadLine 18,OSTCBDly 4
+--- list time tick 8 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 8 ,prio 0 , deadLine 1,OSTCBDly 6
+time 8,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 9 ,prio 2 , deadLine 18,OSTCBDly 3
+--- list time tick 9 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 9 ,prio 0 , deadLine 1,OSTCBDly 5
+time 9,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 10 ,prio 2 , deadLine 18,OSTCBDly 2
+--- list time tick 10 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 10 ,prio 0 , deadLine 1,OSTCBDly 4
+time 10,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 11 ,prio 2 , deadLine 18,OSTCBDly 1
+--- list time tick 11 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 11 ,prio 0 , deadLine 1,OSTCBDly 3
+time 11,deadline 10000 ,prioHighRdy 12, curPrio 12
+--- list time tick 12 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 12 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 12 ,prio 0 , deadLine 1,OSTCBDly 2
+time 12,deadline 9 ,prioHighRdy 1, curPrio 12
+   12 preempty 12   1
+--- list time tick 13 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 13 ,prio 1 , deadLine 9,OSTCBDly 0
+--- list time tick 13 ,prio 0 , deadLine 1,OSTCBDly 1
+time 13,deadline 9 ,prioHighRdy 1, curPrio 1
+OSTimeDly ,time tick 13 ,prio 1 , deadline 19,ticks 3,OSTCBDly 3
+--- list time tick 13 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 13 ,prio 1 , deadLine 19,OSTCBDly 3
+--- list time tick 13 ,prio 0 , deadLine 1,OSTCBDly 1
+time 13,deadline 18 ,prioHighRdy 2, curPrio 1
+   13 complete 1   2
+--- list time tick 14 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 14 ,prio 1 , deadLine 19,OSTCBDly 2
+--- list time tick 14 ,prio 0 , deadLine 1,OSTCBDly 0
+time 14,deadline 18 ,prioHighRdy 2, curPrio 2
+--- list time tick 15 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 15 ,prio 1 , deadLine 19,OSTCBDly 1
+--- list time tick 15 ,prio 0 , deadLine 1,OSTCBDly 0
+time 15,deadline 18 ,prioHighRdy 2, curPrio 2
+--- list time tick 16 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 16 ,prio 1 , deadLine 19,OSTCBDly 0
+--- list time tick 16 ,prio 0 , deadLine 1,OSTCBDly 0
+time 16,deadline 1 ,prioHighRdy 0, curPrio 2
+   16 preempty 2   0
+--- list time tick 17 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 17 ,prio 1 , deadLine 19,OSTCBDly 0
+--- list time tick 17 ,prio 0 , deadLine 1,OSTCBDly 0
+time 17,deadline 1 ,prioHighRdy 0, curPrio 0
+--- list time tick 18 ,prio 2 , deadLine 18,OSTCBDly 0
+--- list time tick 18 ,prio 1 , deadLine 19,OSTCBDly 0
+--- list time tick 18 ,prio 0 , deadLine 1,OSTCBDly 0
+time 18,deadline 1 
