@@ -648,6 +648,24 @@ void  OSIntEnter (void)
 *********************************************************************************************************
 */
 
+INT8U getPrioHightRdy(){
+    OS_TCB    *ptcb;
+    INT8U prioHighRdy=OS_IDLE_PRIO;
+    INT16U deadLine=10000;
+    //printTCBList();
+    ptcb = OSTCBList;                                  /* Point at first TCB in TCB list           */
+    while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3 || ptcb->OSTCBPrio==0){
+        if(ptcb->OSTCBStat==OS_STAT_RDY && !ptcb->OSTCBDly && ptcb->deadLine<deadLine){
+            prioHighRdy = ptcb->OSTCBPrio;
+            deadLine = ptcb->deadLine;
+        }
+        //printf("Priority:%d\tDeadline:%d\tOSTCBDly:%d,compTime %d\n", (int)ptcb->OSTCBPrio,(int) ptcb->deadLine,(int) ptcb->OSTCBDly,(int)ptcb->compTime);
+        ptcb = ptcb->OSTCBNext;                        /* Point at next TCB in TCB list            */
+    }
+    //printf("select Priority:%d\n",(int)prioHighRdy);
+    //sprintf(&CtxSwMessage[CtxSwMessageTop++],"time %d,deadline %d ,prioHighRdy %d, curPrio %d\n",(int)OSTime,(int)deadLine,(int)prioHighRdy,(int)OSPrioCur);
+    return prioHighRdy;
+}
 void  OSIntExit (void)
 {
 #if OS_CRITICAL_METHOD == 3                                /* Allocate storage for CPU status register */
@@ -663,7 +681,8 @@ void  OSIntExit (void)
         }
         if (OSIntNesting == 0) {                           /* Reschedule only if all ISRs complete ... */
             if (OSLockNesting == 0) {                      /* ... and not locked.                      */
-                OS_SchedNew();
+                //OS_SchedNew();
+                OSPrioHighRdy = getPrioHightRdy();
                 if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy */
                     OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy];
 #if OS_TASK_PROFILE_EN > 0
@@ -787,7 +806,7 @@ void  OSSchedUnlock (void)
 void  OSStart (void)
 {
     if (OSRunning == OS_FALSE) {
-        OS_SchedNew();                               /* Find highest priority's task priority number   */
+        OSPrioHighRdy = 0;
         OSPrioCur     = OSPrioHighRdy;
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
@@ -1623,7 +1642,8 @@ void  OS_Sched (void)
     OS_ENTER_CRITICAL();
     if (OSIntNesting == 0) {                           /* Schedule only if all ISRs done and ...       */
         if (OSLockNesting == 0) {                      /* ... scheduler is not locked                  */
-            OS_SchedNew();
+            //OS_SchedNew();
+            OSPrioHighRdy = getPrioHightRdy();
             if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy     */
                 OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
 #if OS_TASK_PROFILE_EN > 0

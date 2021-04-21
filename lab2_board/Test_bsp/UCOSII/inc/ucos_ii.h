@@ -635,6 +635,8 @@ typedef struct os_tcb {
     INT8U            OSTCBY;                /* Index into ready table corresponding to task priority   */
     INT16U         compTime;
       INT16U         period;
+      INT16U         deadLine;
+
 #if OS_LOWEST_PRIO <= 63
     INT8U            OSTCBBitX;             /* Bit mask to access bit position in ready table          */
     INT8U            OSTCBBitY;             /* Bit mask to access bit position in ready group          */
@@ -1930,7 +1932,10 @@ void          OSCtxSw                 (void);
 #endif
 
 #endif
+
 //**** my define
 #define CtxSwMessageSize 300
-extern char CtxSwMessage[CtxSwMessageSize][50];
+extern char CtxSwMessage[CtxSwMessageSize][100];
 extern int CtxSwMessageTop ;
+extern OS_EVENT     *printCtxSwMbox;                               /* Message mailboxes for Tasks #4 and #5         */
+#define OS_IDLE_PRIO 12

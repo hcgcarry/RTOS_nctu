@@ -38,7 +38,7 @@ struct period{
     int exeTime;
     int period;
 };
-char CtxSwMessage[CtxSwMessageSize][50];
+char CtxSwMessage[CtxSwMessageSize][100];
 int CtxSwMessageTop = 0;
 OS_EVENT     *printCtxSwMbox;                               /* Message mailboxes for Tasks #4 and #5         */
 
@@ -47,6 +47,7 @@ OS_STK        TaskStartStk[TASK_STK_SIZE];
 OS_STK        TaskPrintCtxSwStk[TASK_STK_SIZE];
 struct period TaskData[N_TASKS];                      /* Parameters to pass to each task               */
 
+void ArgumentSet(void);
 void  TaskStart (void *pdata);
 void Task(void *pdata);
 static  void  TaskStartCreateTasks (void);
@@ -68,7 +69,9 @@ int main(void)
                   0);
     */
 	OSInit();
+    OSTCBPrioTbl[OS_IDLE_PRIO]->deadLine = 1002;
 	OSTaskCreate(TaskStart, (void *)0, &TaskStartStk[TASK_STK_SIZE - 1], 0);
+    OSTCBPrioTbl[0]->deadLine = 1;
   OSStart();
   return 0;
 }
@@ -85,6 +88,8 @@ void  TaskStart (void *pdata)
 
 
     TaskStartCreateTasks();                                /* Create all the application tasks         */
+    ArgumentSet();
+    OSTimeSet(0);
 
     for (;;) {
     	//printf("--- enter taskStart\n");
@@ -92,26 +97,20 @@ void  TaskStart (void *pdata)
 
         #endif
         //TaskStartDisp();                                  /* Update the display                       */
-        printCtxSwMessage();
+        if(i!=0)printCtxSwMessage();
 
 
 
 
         OSCtxSwCtr = 0;                                    /* Clear context switch counter             */
-        OSTimeDlyHMSM(0, 0, 3, 0);                         /* Wait one second                          */
+        //OSTimeDlyHMSM(0, 0, 3, 0);                         /* Wait one second                          */
+        OSTimeDly (100);  // delay and wait (P-C) times
     }
 }
 static  void  TaskStartCreateTasks (void)
 {
     INT8U  i;
     INT8U err;
-
-    TaskData[0].exeTime = 1;
-    TaskData[0].period= 3;
-    TaskData[1].exeTime = 3;
-    TaskData[1].period= 6;
-    TaskData[2].exeTime = 4;
-        TaskData[2].period= 9;
     /*
     err=OSTaskCreate(printCtxSwMessage, (void *)0, &TaskPrintCtxSwStk[TASK_STK_SIZE-1], 1);
     if(err!=OS_NO_ERR){
@@ -131,10 +130,8 @@ void Task(void *pdata)
     int end;   //the end time
     int toDelay;
     struct period *tmpPdata = (struct period*)pdata;
-    int c = tmpPdata->exeTime;
+    int c = OSTCBCur->compTime;
     ///OS_ENTER_CRITICAL();
-    OSTCBCur->compTime=c;// set the counter (c ticks for computation)
-    OSTCBCur->period=tmpPdata->period;// set the period
 
     //OS_EXIT_CRITICAL();
 
@@ -152,17 +149,17 @@ void Task(void *pdata)
         	  //printf("time:%d task:%d exceed deadline\n",end,OSTCBCur->OSTCBPrio);
         }
         end=OSTimeGet() ; // end time
-
+        toDelay=(OSTCBCur->period)-(end-start) ;
         if(end > start+OSTCBCur->period){
             printf("time:%d task:%d exceed deadline\n",start+OSTCBCur->period,OSTCBCur->OSTCBPrio);
         }
-        toDelay=(OSTCBCur->period)-(end-start) ;
-        start=start+(OSTCBCur->period) ;  // next start time
         #ifdef debug
-        printf("---end OSPrioCur: %d ,real C: %d,period %d,end time:%d,toDelay:%d,next start:%d\n",OSPrioCur,OSTCBCur->compTime,OSTCBCur->period,end,toDelay,start);
+        printf(" end task,start time %d,end time %d,to delay %d,prio:%d,deadLine %d\n",(int)start,(int)end,(int)toDelay,(int)OSTCBCur->OSTCBPrio,(int)OSTCBCur->deadLine);
         #endif
         //OS_ENTER_CRITICAL();
+        start+=(OSTCBCur->period) ;  // next start time
         OSTCBCur->compTime=c ;// reset the counter (c ticks for computation)
+        OSTCBCur->deadLine=start + OSTCBCur->period ;// reset the deadline
         //OS_EXIT_CRITICAL();
         OSTimeDly (toDelay);  // delay and wait (P-C) times
     }
@@ -205,3 +202,27 @@ void printCtxSwMessage(){
 * Altera does not recommend, suggest or require that this reference design    *
 * file be used in conjunction or combination with any other product.          *
 ******************************************************************************/
+
+void ArgumentSet(void){
+    OS_TCB* ptcb;
+    ptcb = OSTCBList;
+    while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3){
+        //printf("Priority: %d set argument\n", ptcb->OSTCBPrio);
+        if(ptcb->OSTCBPrio==1){
+            ptcb->compTime = 1;
+            ptcb->period = 4;
+            ptcb->deadLine = 4;
+        }
+        else if(ptcb->OSTCBPrio==2){
+            ptcb->compTime = 2;
+            ptcb->period = 5;
+            ptcb->deadLine = 5;
+        }
+        else if(ptcb->OSTCBPrio==3){
+            ptcb->compTime = 2;
+            ptcb->period = 10;
+            ptcb->deadLine = 10;
+        }
+        ptcb = ptcb->OSTCBNext;
+    }
+}
