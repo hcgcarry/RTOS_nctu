@@ -140,8 +140,7 @@ ACDS_VERSION := 11.0sp1
 ELF := Test.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS += Copy of hello_ucosii.c
-C_SRCS += hello_ucosii.c
+C_SRCS := hello_ucosii.c
 CXX_SRCS :=
 ASM_SRCS :=
 

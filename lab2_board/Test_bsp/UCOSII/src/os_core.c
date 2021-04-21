@@ -20,7 +20,7 @@
 * licensing fee.
 *********************************************************************************************************
 */
-
+#define OS_IDLE_PRIO 20
 #ifndef  OS_MASTER_FILE
 #define  OS_GLOBALS
 #include <ucos_ii.h>
@@ -650,7 +650,8 @@ void  OSIntEnter (void)
 
 INT8U getPrioHightRdy(){
     OS_TCB    *ptcb;
-    INT8U prioHighRdy=OS_IDLE_PRIO;
+
+    INT8U prioHighRdy=20;
     INT16U deadLine=10000;
     //printTCBList();
     ptcb = OSTCBList;                                  /* Point at first TCB in TCB list           */
@@ -688,8 +689,12 @@ void  OSIntExit (void)
 #if OS_TASK_PROFILE_EN > 0
                     OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task  */
 #endif
-                    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
 
+                printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+
+                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+
+                    //printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
                     OSCtxSwCtr++;                          /* Keep track of the number of ctx switches */
                     OSIntCtxSw();                          /* Perform interrupt level ctx switch       */
                 }
@@ -811,6 +816,7 @@ void  OSStart (void)
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
         OSTimeSet(0);
+
         OSStartHighRdy();                            /* Execute target specific code to start task     */
     }
 }
@@ -1649,7 +1655,13 @@ void  OS_Sched (void)
 #if OS_TASK_PROFILE_EN > 0
                 OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task      */
 #endif
-                sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+
+
+
+                printf("%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+
+                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+
                 OSCtxSwCtr++;                          /* Increment context switch counter             */
                 OS_TASK_SW();                          /* Perform a context switch                     */
             }

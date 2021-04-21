@@ -31,9 +31,9 @@
 #include <stdio.h>
 #include "includes.h"
 
-//#define debug
+#define debug
 #define  TASK_STK_SIZE                 512       /* Size of each task's stacks (# of WORDs)            */
-#define  N_TASKS                        3       /* Number of identical tasks                          */
+#define  N_TASKS                        2       /* Number of identical tasks                          */
 struct period{
     int exeTime;
     int period;
@@ -69,9 +69,11 @@ int main(void)
                   0);
     */
 	OSInit();
-    OSTCBPrioTbl[OS_IDLE_PRIO]->deadLine = 1002;
+    OSTCBPrioTbl[20]->deadLine = 1002;
 	OSTaskCreate(TaskStart, (void *)0, &TaskStartStk[TASK_STK_SIZE - 1], 0);
     OSTCBPrioTbl[0]->deadLine = 1;
+    TaskStartCreateTasks();                                /* Create all the application tasks         */
+      ArgumentSet();
   OSStart();
   return 0;
 }
@@ -81,20 +83,19 @@ void  TaskStart (void *pdata)
 
     char       s[100];
     INT16S     key;
-
+    int i;
 
     pdata = pdata;                                         /* Prevent compiler warning                 */
 
 
 
-    TaskStartCreateTasks();                                /* Create all the application tasks         */
-    ArgumentSet();
+
     OSTimeSet(0);
 
-    for (;;) {
-    	//printf("--- enter taskStart\n");
-        #ifdef debug
+    for (i=0;;i++) {
 
+        #ifdef debug
+    	printf("for enter taskStart\n");
         #endif
         //TaskStartDisp();                                  /* Update the display                       */
         if(i!=0)printCtxSwMessage();
@@ -104,7 +105,7 @@ void  TaskStart (void *pdata)
 
         OSCtxSwCtr = 0;                                    /* Clear context switch counter             */
         //OSTimeDlyHMSM(0, 0, 3, 0);                         /* Wait one second                          */
-        OSTimeDly (100);  // delay and wait (P-C) times
+        OSTimeDly (1000);  // delay and wait (P-C) times
     }
 }
 static  void  TaskStartCreateTasks (void)
@@ -140,7 +141,7 @@ void Task(void *pdata)
     {
         #ifdef debug
 
-        printf("---start OSPrioCur: %d , real C %d,period %d\n",OSPrioCur,OSTCBCur->compTime,OSTCBCur->period);
+        //printf("---start OSPrioCur: %d , real C %d,period %d\n",OSPrioCur,OSTCBCur->compTime,OSTCBCur->period);
         #endif
         while(OSTCBCur->compTime>0)  //C ticks
         {
@@ -154,7 +155,7 @@ void Task(void *pdata)
             printf("time:%d task:%d exceed deadline\n",start+OSTCBCur->period,OSTCBCur->OSTCBPrio);
         }
         #ifdef debug
-        printf(" end task,start time %d,end time %d,to delay %d,prio:%d,deadLine %d\n",(int)start,(int)end,(int)toDelay,(int)OSTCBCur->OSTCBPrio,(int)OSTCBCur->deadLine);
+        //printf(" end task,start time %d,end time %d,to delay %d,prio:%d,deadLine %d\n",(int)start,(int)end,(int)toDelay,(int)OSTCBCur->OSTCBPrio,(int)OSTCBCur->deadLine);
         #endif
         //OS_ENTER_CRITICAL();
         start+=(OSTCBCur->period) ;  // next start time
@@ -207,14 +208,14 @@ void ArgumentSet(void){
     OS_TCB* ptcb;
     ptcb = OSTCBList;
     while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3){
-        //printf("Priority: %d set argument\n", ptcb->OSTCBPrio);
+        printf("Priority: %d set argument\n", ptcb->OSTCBPrio);
         if(ptcb->OSTCBPrio==1){
             ptcb->compTime = 1;
-            ptcb->period = 4;
-            ptcb->deadLine = 4;
+            ptcb->period = 3;
+            ptcb->deadLine = 3;
         }
         else if(ptcb->OSTCBPrio==2){
-            ptcb->compTime = 2;
+            ptcb->compTime = 3;
             ptcb->period = 5;
             ptcb->deadLine = 5;
         }

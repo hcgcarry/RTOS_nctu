@@ -1938,4 +1938,4 @@ void          OSCtxSw                 (void);
 extern char CtxSwMessage[CtxSwMessageSize][100];
 extern int CtxSwMessageTop ;
 extern OS_EVENT     *printCtxSwMbox;                               /* Message mailboxes for Tasks #4 and #5         */
-#define OS_IDLE_PRIO 12
+#define OS_IDLE_PRIO 20
