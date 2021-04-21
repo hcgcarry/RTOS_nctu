@@ -9,3 +9,9 @@ compile & run:
 2.clean.bat
 3.maketest.bat
 4.test.exe
+
+
+* 修改的file
+test.C
+os_core.c :osintexit ,os_sched,osstart,ostimetick
+uCos.H :最下面的define,os_tcb
