@@ -1,0 +1,9 @@
+## 修改
+* system.h
+#define UCOSII_TIMER_TICKS_PER_SEC 1u  (tick 太快 I/O會出錯)
+
+* task.C
+將
+starttaskcreatetasks() setArgments() 放到main
+
+* 改 os_idle_prio 改成20
