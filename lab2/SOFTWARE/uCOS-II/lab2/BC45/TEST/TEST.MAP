@@ -6,7 +6,7 @@
  0283EH 02913H 000D6H OS_CPU_A_TEXT      CODE
  02914H 02AE9H 001D6H OS_CPU_C_TEXT      CODE
  02AEAH 02E66H 0037DH PC_TEXT            CODE
- 02E67H 06696H 03830H UCOS_II_TEXT       CODE
+ 02E67H 0669EH 03838H UCOS_II_TEXT       CODE
  066A0H 066A0H 00000H _FARDATA           FAR_DATA
  066A0H 066A0H 00000H _FARBSS            FAR_BSS
  066A0H 066A0H 00000H _OVERLAY_          OVRINFO
@@ -78,7 +78,7 @@ Detailed map of segments
  0283:000E 00D6 C=CODE   S=OS_CPU_A_TEXT  G=(none)  M=\SOFTWARE\uCOS-II\Ix86L\BC45\OS_CPU_A.ASM ACBP=48
  0291:0004 01D6 C=CODE   S=OS_CPU_C_TEXT  G=(none)  M=os_cpu_c.c ACBP=28
  02AE:000A 037D C=CODE   S=PC_TEXT        G=(none)  M=pc.c       ACBP=28
- 02E6:0007 3830 C=CODE   S=UCOS_II_TEXT   G=(none)  M=ucos_ii.c  ACBP=28
+ 02E6:0007 3838 C=CODE   S=UCOS_II_TEXT   G=(none)  M=ucos_ii.c  ACBP=28
  066A:0000 0000 C=FAR_DATA S=_FARDATA       G=(none)  M=c0.ASM     ACBP=68
  066A:0000 0000 C=FAR_BSS S=_FARBSS        G=(none)  M=c0.ASM     ACBP=68
  066A:0000 0000 C=OVRINFO S=_OVERLAY_      G=(none)  M=c0.ASM     ACBP=68
@@ -313,22 +313,22 @@ Detailed map of segments
  066A:9AF5 idle  _OSStatRdy
  02E6:2E19 idle  _OSTaskChangePrio
  02E6:2FE5       _OSTaskCreate
- 02E6:309A idle  _OSTaskCreateExt
+ 02E6:30A2 idle  _OSTaskCreateExt
  0291:0006       _OSTaskCreateHook
  066A:96EB idle  _OSTaskCtr
- 02E6:318A idle  _OSTaskDel
+ 02E6:3192 idle  _OSTaskDel
  0291:000B       _OSTaskDelHook
- 02E6:3369 idle  _OSTaskDelReq
+ 02E6:3371 idle  _OSTaskDelReq
  0291:0010       _OSTaskIdleHook
  066A:92E7 idle  _OSTaskIdleStk
- 02E6:35E7 idle  _OSTaskQuery
- 02E6:33D5 idle  _OSTaskResume
+ 02E6:35EF idle  _OSTaskQuery
+ 02E6:33DD idle  _OSTaskResume
  0291:0011       _OSTaskStatHook
  066A:96F5 idle  _OSTaskStatStk
- 02E6:3454 idle  _OSTaskStkChk
+ 02E6:345C idle  _OSTaskStkChk
  0291:0012       _OSTaskStkInit
  0291:00F8 idle  _OSTaskStkInit_FPE_x86
- 02E6:3539 idle  _OSTaskSuspend
+ 02E6:3541 idle  _OSTaskSuspend
  0291:01D3       _OSTaskSwHook
  066A:92E3       _OSTCBCur
  066A:92DF idle  _OSTCBFreeList
@@ -340,11 +340,11 @@ Detailed map of segments
  066A:8F00       _OSTickDOSCtr
  0283:0094       _OSTickISR
  066A:8F1E idle  _OSTime
- 02E6:3655       _OSTimeDly
- 02E6:369C idle  _OSTimeDlyHMSM
- 02E6:378B idle  _OSTimeDlyResume
- 02E6:3803       _OSTimeGet
- 02E6:3822       _OSTimeSet
+ 02E6:365D       _OSTimeDly
+ 02E6:36A4 idle  _OSTimeDlyHMSM
+ 02E6:3793 idle  _OSTimeDlyResume
+ 02E6:380B       _OSTimeGet
+ 02E6:382A       _OSTimeSet
  02E6:0265       _OSTimeTick
  0291:01D9       _OSTimeTickHook
  066A:015E idle  _OSUnMapTbl
@@ -688,18 +688,18 @@ Detailed map of segments
  02E6:2D93 idle  _OSSemQuery
  02E6:2E19 idle  _OSTaskChangePrio
  02E6:2FE5       _OSTaskCreate
- 02E6:309A idle  _OSTaskCreateExt
- 02E6:318A idle  _OSTaskDel
- 02E6:3369 idle  _OSTaskDelReq
- 02E6:33D5 idle  _OSTaskResume
- 02E6:3454 idle  _OSTaskStkChk
- 02E6:3539 idle  _OSTaskSuspend
- 02E6:35E7 idle  _OSTaskQuery
- 02E6:3655       _OSTimeDly
- 02E6:369C idle  _OSTimeDlyHMSM
- 02E6:378B idle  _OSTimeDlyResume
- 02E6:3803       _OSTimeGet
- 02E6:3822       _OSTimeSet
+ 02E6:30A2 idle  _OSTaskCreateExt
+ 02E6:3192 idle  _OSTaskDel
+ 02E6:3371 idle  _OSTaskDelReq
+ 02E6:33DD idle  _OSTaskResume
+ 02E6:345C idle  _OSTaskStkChk
+ 02E6:3541 idle  _OSTaskSuspend
+ 02E6:35EF idle  _OSTaskQuery
+ 02E6:365D       _OSTimeDly
+ 02E6:36A4 idle  _OSTimeDlyHMSM
+ 02E6:3793 idle  _OSTimeDlyResume
+ 02E6:380B       _OSTimeGet
+ 02E6:382A       _OSTimeSet
  066A:0000 idle  DATASEG@
  066A:005B idle  __Int0Vector
  066A:005F idle  __Int4Vector
