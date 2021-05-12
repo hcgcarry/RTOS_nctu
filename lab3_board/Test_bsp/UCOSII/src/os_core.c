@@ -20,7 +20,7 @@
 * licensing fee.
 *********************************************************************************************************
 */
-#define OS_IDLE_PRIO 20
+
 #ifndef  OS_MASTER_FILE
 #define  OS_GLOBALS
 #include <ucos_ii.h>
@@ -648,25 +648,6 @@ void  OSIntEnter (void)
 *********************************************************************************************************
 */
 
-INT8U getPrioHightRdy(){
-    OS_TCB    *ptcb;
-
-    INT8U prioHighRdy=20;
-    INT16U deadLine=10000;
-    //printTCBList();
-    ptcb = OSTCBList;                                  /* Point at first TCB in TCB list           */
-    while(ptcb->OSTCBPrio==1 || ptcb->OSTCBPrio==2 || ptcb->OSTCBPrio==3 || ptcb->OSTCBPrio==0){
-        if(ptcb->OSTCBStat==OS_STAT_RDY && !ptcb->OSTCBDly && ptcb->deadLine<deadLine){
-            prioHighRdy = ptcb->OSTCBPrio;
-            deadLine = ptcb->deadLine;
-        }
-        //printf("Priority:%d\tDeadline:%d\tOSTCBDly:%d,compTime %d\n", (int)ptcb->OSTCBPrio,(int) ptcb->deadLine,(int) ptcb->OSTCBDly,(int)ptcb->compTime);
-        ptcb = ptcb->OSTCBNext;                        /* Point at next TCB in TCB list            */
-    }
-    //printf("select Priority:%d\n",(int)prioHighRdy);
-    //sprintf(&CtxSwMessage[CtxSwMessageTop++],"time %d,deadline %d ,prioHighRdy %d, curPrio %d\n",(int)OSTime,(int)deadLine,(int)prioHighRdy,(int)OSPrioCur);
-    return prioHighRdy;
-}
 void  OSIntExit (void)
 {
 #if OS_CRITICAL_METHOD == 3                                /* Allocate storage for CPU status register */
@@ -682,19 +663,15 @@ void  OSIntExit (void)
         }
         if (OSIntNesting == 0) {                           /* Reschedule only if all ISRs complete ... */
             if (OSLockNesting == 0) {                      /* ... and not locked.                      */
-                //OS_SchedNew();
-                OSPrioHighRdy = getPrioHightRdy();
+                OS_SchedNew();
                 if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy */
                     OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy];
 #if OS_TASK_PROFILE_EN > 0
                     OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task  */
 #endif
+                    //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
+                    printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
 
-                printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
-
-                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
-
-                    //printf("%5d preempty %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
                     OSCtxSwCtr++;                          /* Keep track of the number of ctx switches */
                     OSIntCtxSw();                          /* Perform interrupt level ctx switch       */
                 }
@@ -811,12 +788,11 @@ void  OSSchedUnlock (void)
 void  OSStart (void)
 {
     if (OSRunning == OS_FALSE) {
-        OSPrioHighRdy = 0;
+        OS_SchedNew();                               /* Find highest priority's task priority number   */
         OSPrioCur     = OSPrioHighRdy;
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
         OSTimeSet(0);
-
         OSStartHighRdy();                            /* Execute target specific code to start task     */
     }
 }
@@ -1648,19 +1624,14 @@ void  OS_Sched (void)
     OS_ENTER_CRITICAL();
     if (OSIntNesting == 0) {                           /* Schedule only if all ISRs done and ...       */
         if (OSLockNesting == 0) {                      /* ... scheduler is not locked                  */
-            //OS_SchedNew();
-            OSPrioHighRdy = getPrioHightRdy();
+            OS_SchedNew();
             if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy     */
                 OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
 #if OS_TASK_PROFILE_EN > 0
                 OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task      */
 #endif
-
-
-
+               // sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
                 printf("%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
-
-                //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d complete %d   %d\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioHighRdy);
 
                 OSCtxSwCtr++;                          /* Increment context switch counter             */
                 OS_TASK_SW();                          /* Perform a context switch                     */
@@ -1692,6 +1663,7 @@ static  void  OS_SchedNew (void)
 #if OS_LOWEST_PRIO <= 63                         /* See if we support up to 64 tasks                   */
     INT8U   y;
 
+    //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  OSRdyGrp %d , OSRdyTbl[OSTCBCur->OSTCBY] %d\n",(int)OSTime,(int)OSRdyGrp,(int)OSRdyTbl[OSTCBCur->OSTCBY]);
 
     y             = OSUnMapTbl[OSRdyGrp];
     OSPrioHighRdy = (INT8U)((y << 3) + OSUnMapTbl[OSRdyTbl[y]]);

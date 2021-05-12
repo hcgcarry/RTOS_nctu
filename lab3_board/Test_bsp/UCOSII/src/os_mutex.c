@@ -20,7 +20,6 @@
 * licensing fee.
 *********************************************************************************************************
 */
-
 #ifndef  OS_MASTER_FILE
 #include <ucos_ii.h>
 #endif
@@ -401,7 +400,8 @@ void  OSMutexPend (OS_EVENT *pevent, INT16U timeout, INT8U *perr)
     INT8U      mprio;                                      /* Mutex owner priority                     */
     BOOLEAN    rdy;                                        /* Flag indicating task was ready           */
     OS_TCB    *ptcb;
-    OS_EVENT  *pevent2;
+    INT8U const OSMapTbl[]= {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+
     INT8U      y;
 #if OS_CRITICAL_METHOD == 3                                /* Allocate storage for CPU status register */
     OS_CPU_SR  cpu_sr = 0;
@@ -442,23 +442,36 @@ void  OSMutexPend (OS_EVENT *pevent, INT16U timeout, INT8U *perr)
 
         cpp= (INT8U)(pevent->OSEventCnt >> 8);                     
         if(cpp < OSTCBCur->OSTCBPrio){
-            sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)cpp);
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)cpp);
+            printf("%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)cpp);
+
             OSTCBCur->OSTCBPrio         = cpp;                     /* Change owner task prio to PIP            */
             OSTCBCur->OSTCBY            = OSTCBCur->OSTCBPrio >> 3;
+//            OSTCBCur->OSTCBBitY         = OSUnMapTbl[OSTCBCur->OSTCBY];
             OSTCBCur->OSTCBBitY         = OSMapTbl[OSTCBCur->OSTCBY];
             OSTCBCur->OSTCBX            = OSTCBCur->OSTCBPrio & 0x07;
             OSTCBCur->OSTCBBitX         = OSMapTbl[OSTCBCur->OSTCBX];
+//            OSTCBCur->OSTCBBitX         = OSUnMapTbl[OSTCBCur->OSTCBX];
+
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  OSRdyGrp %d , OSRdyTbl[OSTCBCur->OSTCBY] %d\n",(int)OSTime,(int)OSRdyGrp,(int)OSRdyTbl[OSTCBCur->OSTCBY]);
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  OSTCBY  %d ,OSTCBBitY %d,OSTCBX  %d,OSTCBBitX %d, OSRdyTbl[OSTCBCur->OSTCBY] %d\n",(int)OSTime,(int)OSTCBCur->OSTCBY,(int)OSTCBCur->OSTCBBitY,(int)OSTCBCur->OSTCBX,(int)OSTCBCur->OSTCBBitX);
+
             OSRdyGrp               |= OSTCBCur->OSTCBBitY;     /* ... make it ready at new priority.       */
             OSRdyTbl[OSTCBCur->OSTCBY] |= OSTCBCur->OSTCBBitX;
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  OSRdyGrp %d , OSRdyTbl[OSTCBCur->OSTCBY] %d\n",(int)OSTime,(int)OSRdyGrp,(int)OSRdyTbl[OSTCBCur->OSTCBY]);
+
             OSTCBPrioTbl[cpp]       = (OS_TCB *)OSTCBCur;
             OSPrioCur = OSTCBCur->OSTCBPrio;
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  cpp:%d   (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
         }
         else{
-            sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)OSPrioCur);
+            //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)OSPrioCur);
+            printf("%5d lock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)cpp,(int)OSPrioCur,(int)OSPrioCur);
+
         }
 
         OS_EXIT_CRITICAL();
-        *err  = OS_NO_ERR;
+        *perr  = OS_NO_ERR;
         return;
     }
     OSTCBCur->OSTCBStat     |= OS_STAT_MUTEX;         /* Mutex not available, pend current task        */
@@ -520,6 +533,8 @@ INT8U  OSMutexPost (OS_EVENT *pevent)
 {
     INT8U      pip;                                   /* Priority inheritance priority                 */
     INT8U      prio;
+    INT8U const OSMapTbl[]= {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+
 #if OS_CRITICAL_METHOD == 3                           /* Allocate storage for CPU status register      */
     OS_CPU_SR  cpu_sr = 0;
 #endif
@@ -545,11 +560,17 @@ INT8U  OSMutexPost (OS_EVENT *pevent)
         return (OS_ERR_NOT_MUTEX_OWNER);
     }
     if (OSTCBCur->OSTCBPrio == pip) {                 /* Did we have to raise current task's priority? */
-        sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)OSTCBCur,(int)OSTCBCur,(int)prio);
+        //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)OSTCBCur,(int)OSTCBCur,(int)prio);
+        printf("%1 5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)OSPrioCur,(int)OSPrioCur,(int)prio);
+        //printf("%5d unlock R%d   (Prio=%d changes to=%d)OSTCBCur->OSTCBPrio %d,pip %d \n",(int)OSTime,(int)OSTCBCur,(int)OSTCBCur,(int)prio,(int)OSTCBCur->OSTCBPrio,(int)pip);
+
         OSMutex_RdyAtPrio(OSTCBCur, prio);            /* Restore the task's original priority          */
+        OSPrioCur = OSTCBCur->OSTCBPrio;
     }
     else{
-        sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)pip,(int)prio,(int)prio);
+        //sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)pip,(int)prio,(int)prio);
+       printf("%5d unlock R%d   (Prio=%d changes to=%d)\n",(int)OSTime,(int)pip,(int)prio,(int)prio);
+
     }
     OSTCBPrioTbl[pip] = OS_TCB_RESERVED;              /* Reserve table entry                           */
     if (pevent->OSEventGrp != 0) {                    /* Any task waiting for the mutex?               */
@@ -563,8 +584,11 @@ INT8U  OSMutexPost (OS_EVENT *pevent)
         OSTCBPrioTbl[prio]->OSTCBPrio         = pip;                     /* Change owner task prio to PIP            */
         OSTCBPrioTbl[prio]->OSTCBY            = OSTCBPrioTbl[prio]->OSTCBPrio >> 3;
         OSTCBPrioTbl[prio]->OSTCBBitY         = OSMapTbl[OSTCBPrioTbl[prio]->OSTCBY];
+        //OSTCBPrioTbl[prio]->OSTCBBitY         = OSUnMapTbl[OSTCBPrioTbl[prio]->OSTCBY];
+
         OSTCBPrioTbl[prio]->OSTCBX            = OSTCBPrioTbl[prio]->OSTCBPrio & 0x07;
         OSTCBPrioTbl[prio]->OSTCBBitX         = OSMapTbl[OSTCBPrioTbl[prio]->OSTCBX];
+//        OSTCBPrioTbl[prio]->OSTCBBitX         = OSUnMapTbl[OSTCBPrioTbl[prio]->OSTCBX];
 
         OSTCBPrioTbl[pip]       = (OS_TCB *)pevent->OSEventPtr;
         if (prio <= pip) {                            /*      PIP 'must' have a SMALLER prio ...       */

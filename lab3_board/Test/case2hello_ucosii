@@ -34,7 +34,7 @@
 #define taskcase1
 #define debug
 #define  TASK_STK_SIZE                 512       /* Size of each task's stacks (# of WORDs)            */
-#define  N_TASKS                        3       /* Number of identical tasks                          */
+#define  N_TASKS                        2       /* Number of identical tasks                          */
 struct period{
     int exeTime;
     int period;
@@ -118,9 +118,9 @@ static  void  TaskStartCreateTasks (void)
 
     OSTaskCreate(Task1,(void*)0 , &TaskStk[0][TASK_STK_SIZE - 1],3 );
     OSTaskCreate(Task2, (void *)0, &TaskStk[1][TASK_STK_SIZE - 1],4 );
-
+    #ifdef taskcase1
     OSTaskCreate(Task3, (void *)0, &TaskStk[2][TASK_STK_SIZE - 1],5 );
-
+    #endif
 }
 void printCtxSwMessage(){
         static int i=0;
@@ -190,8 +190,6 @@ void Task3(void *pdata)
     int startDelayTime;
     pdata = pdata;
     startDelayTime = start - OSTime;
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d start  compTime %d  (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
     if(startDelayTime > 0) OSTimeDly(startDelayTime);
 
     OSTimeDly(0);
@@ -213,7 +211,7 @@ void Task3(void *pdata)
 
 void Task1(void *pdata)
 {
-    int start=9;
+    int start=5;
     int startDelayTime;
     INT8U err;
     pdata = pdata;
@@ -227,16 +225,16 @@ void Task1(void *pdata)
     sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d end  compTime  %d (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
 
 
-    OSTCBCur->compTime=2;
+    OSTCBCur->compTime=3;
 
-    OSMutexPend(R1,0,&err);
+    OSMutexPend(R2,0,&err);
     sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d  start compTime %d  (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
 
     while(OSTCBCur->compTime>0){}
     sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d end compTime  %d (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
 
 
-    OSTCBCur->compTime=2;
+    OSTCBCur->compTime=3;
 
     OSMutexPend(R1,0,&err);
     sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d start compTime %d  (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
@@ -258,7 +256,7 @@ void Task1(void *pdata)
 }
 void Task2(void *pdata)
 {
-    int start=15;
+    int start=0;
     INT8U err;
     //OSTCBCur->period=3;// set the period
     int startDelayTime;
@@ -300,38 +298,6 @@ void Task2(void *pdata)
 
     OSMutexPost(R1);
     sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d end compTime  %d (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
-
-    OSTaskDel(OS_PRIO_SELF);
-}
-void Task3(void *pdata)
-{
-    int start=0;
-    INT8U err;
-    //OSTCBCur->period=3;// set the period
-    int startDelayTime;
-    startDelayTime = start - OSTime;
-    if(startDelayTime > 0) OSTimeDly(startDelayTime);
-
-    pdata = pdata;
-
-
-    OSTCBCur->compTime=2;
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d start compTime %d  (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
-    while(OSTCBCur->compTime>0){}
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d end compTime  %d (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
-    OSTCBCur->compTime=7;
-
-    OSMutexPend(R1,0,&err);
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d start compTime %d  (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
-    while(OSTCBCur->compTime>0){}
-    OSMutexPost(R1);
-
-    sprintf(&CtxSwMessage[CtxSwMessageTop++],"%5d end compTime  %d (OSPrioCur=%d, OSTCBCur->OSTCBPrio %d)\n",(int)OSTime,(int)OSTCBCur->compTime,(int)OSPrioCur,(int)OSTCBCur->OSTCBPrio);
-
 
 
     OSTaskDel(OS_PRIO_SELF);

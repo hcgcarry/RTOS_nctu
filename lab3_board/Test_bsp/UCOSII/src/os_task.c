@@ -240,7 +240,7 @@ INT8U  OSTaskCreate (void (*task)(void *p_arg), void *p_arg, OS_STK *ptos, INT8U
         err = OS_TCBInit(prio, psp, (OS_STK *)0, 0, 0, (void *)0, 0);
         if (err == OS_ERR_NONE) {
             if (OSRunning == OS_TRUE) {      /* Find highest priority task if multitasking has started */
-                //OS_Sched();
+                OS_Sched();
             }
         } else {
             OS_ENTER_CRITICAL();
