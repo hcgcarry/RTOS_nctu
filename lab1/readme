@@ -1,3 +1,8 @@
+* lab目的:
+創造task 並且模擬fix priority scheduling 
+
+
+
 goToSource.bat :方便到達執行程式的dir
 
 kernel code:SOFTWARE\uCOS-II\SOURCE
